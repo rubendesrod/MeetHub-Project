@@ -9,31 +9,33 @@ DROP TABLE IF EXISTS Invitaciones;
 DROP TABLE IF EXISTS Reuniones;
 DROP TABLE IF EXISTS Usuarios;
 
--- Creación de la tabla Usuarios
+-- Tabla Usuarios
 CREATE TABLE Usuarios (
-    id_usuario INT PRIMARY KEY,
-    nombre VARCHAR(100),
-    apellidos VARCHAR(100),
-    correo VARCHAR(100),
-    token_google VARCHAR(100)
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
+    apellidos VARCHAR(255),
+    correo VARCHAR(255),
+    avatar VARCHAR(255),
+    token_google VARCHAR(255)
 );
 
--- Creación de la tabla Reuniones
+-- Tabla Reuniones
 CREATE TABLE Reuniones (
-    id_reunion INT PRIMARY KEY,
-    nombre VARCHAR(100),
+    id_reunion INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255),
     descripcion TEXT,
     enlace_reunion VARCHAR(255),
     hora_inicio TIME,
     hora_fin TIME,
     fecha DATE,
+    acta TEXT,
     id_usuario INT,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
--- Creación de la tabla Invitaciones
+-- Tabla Invitaciones
 CREATE TABLE Invitaciones (
-    id_asistencia INT PRIMARY KEY,
+    id_invitacion INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT,
     id_reunion INT,
     confirmacion BOOLEAN,
