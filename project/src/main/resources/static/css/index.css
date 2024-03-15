@@ -1,5 +1,53 @@
 @charset "UTF-8";
 
-body{
+body {
     background-image: url("../img/fondo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Oculta las scrollbars */
+}
+
+/*Para que las dos columnas se queden con el mismo largo que las otras*/
+.row {
+    display: flex;
+}
+
+/*Estilo para la columna de los datos en las que se encuentra lo principal de la pantalla*/
+.datos {
+    padding-top: 40px;
+    align-items: center;
+    background-color: white;
+    height: 100vh;
+    overflow: hidden; /* Oculta las scrollbars */
+    .titulo{
+        h1{
+            color: #143FD8;
+        }
+    }
+    .formulario{
+        p{
+            color: black;
+            font-weight: bold;
+        }
+        .inputs{
+            input{
+                width: 200px;
+            }
+        }
+        .enlaces{
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        
+    }
+    #CopyRight {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 10px; /* Ajusta el margen según sea necesario */
+    }
+    
 }
