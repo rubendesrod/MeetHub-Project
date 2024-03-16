@@ -16,25 +16,44 @@ body {
 
 /*Estilo para la columna de los datos en las que se encuentra lo principal de la pantalla*/
 .datos {
-    padding-top: 40px;
+    padding-top: 4em;
     align-items: center;
     background-color: white;
     height: 100vh;
     overflow: hidden; /* Oculta las scrollbars */
     .titulo{
         h1{
+            font-size: 6em;
             color: #143FD8;
         }
     }
-    .formulario{
+    .formulario-login{
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 12em;
         p{
             color: black;
             font-weight: bold;
+            font-size: 1.5em;
         }
         .inputs{
-            input{
-                width: 200px;
+            margin: 2em;
+            div{
+                margin-top: 10px;
             }
+            input{
+                font-size: 1.2em;
+                width: 20em;
+                height: 50px;
+            }
+        }
+        button{
+            height: 4em;
+            width: 10em;
+            margin-bottom: 2em;
+            font-size: 1.3em;
         }
         .enlaces{
             text-align: center;
