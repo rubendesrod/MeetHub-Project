@@ -16,7 +16,6 @@
     <div class="row">
         <div class="col-6">
             <!--Columna de la izquierda-->
-            
         </div>
         <div class="col-6 datos">
             <!--Columna de la derecha-->
@@ -29,14 +28,14 @@
                     <div class="inputs">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="email" type="email" class="form-control" name="email" placeholder="Email">
+                            <input id="emailL" type="email" class="form-control" name="email" placeholder="Email">
                         </div>
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+                            <input id="passwordL" type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                     </div>
-                    <button class="btn btn-primary" type="submit">LOGIN</button>
+                    <button class="btn btn-primary" type="button" onclick="validarLogin()">LOGIN</button>
                     <div class="enlaces">
                         <a href="">No recuerdas tu contraseña?</a>
                         <a href="./register.html">Registraté ahora!</a>
@@ -46,6 +45,6 @@
           <p id="CopyRight">MeetHub&copy;Deploymeent-2024</p>
         </div>
     </div>
-
+    <script src="../static/JS/validaciones.js"></script>
 </body>
 </html>

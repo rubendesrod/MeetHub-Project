@@ -85,31 +85,91 @@ body {
 
 /* Media Queries para diferentes tamaños de pantalla */
 
-/* Móvil pequeño: 360 x 640 px */
-@media only screen and (max-width: 360px) {
-    /* Agregar estilos específicos para móvil pequeño aquí */
-}
-
 /* Móvil medio: 375 x 667 px */
 @media only screen and (min-width: 361px) and (max-width: 375px) {
-    /* Agregar estilos específicos para móvil medio aquí */
+    
+    *{
+        overflow-y: hidden;
+    }
+
+    .datos .titulo h1 {
+        margin-top: 2em;
+        font-size: 2em;
+    }
+    /*Estilo para los inputs*/
+    .datos .formulario-login .inputs input{
+        width: 10em;
+        height: 3em;
+        font-size: 0.8em;
+    }
+    /*Estilo para el texto en negro*/
+    .datos .formulario-login p{
+        font-size: 1.2em;
+    }
+    /* Estilo para dar margen al formulario por la parte de arriba */
+    .datos .formulario-login,
+    .datos .formulario-register {
+        margin-top: 4em;
+    }
+    .datos button {
+        height: 2.6em;
+        width: 8em;
+        font-size: 1.1em;
+    }
+    .datos .enlaces a {
+        margin-left: 4em;
+        height: 4em;
+        width: 10em;
+        font-size: 0.8em;
+    }
+
+    #CopyRight  {
+        font-size: 0.8em;
+    }
 }
 
 /* Smartphone grande: 720 x 1280 px */
 @media only screen and (min-width: 376px) and (max-width: 720px) {
-    /* Agregar estilos específicos para smartphone grande aquí */
+    .datos .titulo h1 {
+        margin-top: 1em;
+        font-size: 4em;
+    }
+    /*Estilo para los inputs*/
+    .datos .formulario-login .inputs input{
+        width: 12em;
+        height: 2em;
+    }
+    /*Estilo para el texto en negro*/
+    .datos .formulario-login p{
+        font-size: 1.2em;
+    }
+    /* Estilo para dar margen al formulario por la parte de arriba */
+    .datos .formulario-login,
+    .datos .formulario-register {
+        margin-top: 12em;
+    }
+    .datos button,
+    .datos .enlaces button {
+        height: 2.6em;
+        width: 8em;
+        font-size: 1.1em;
+    }
 }
 
 /* Ordenador portátil medio: 1366 x 768 px */
 @media only screen and (min-width: 721px) and (max-width: 1366px) {
-    /* Agregar estilos específicos para ordenador portátil medio aquí */
     .datos .titulo h1 {
-        font-size: 4em;
+        font-size: 5em;
     }
+    /*Estilo para los inputs*/
+    .datos .formulario-login .inputs input{
+        width: 15em;
+    }
+    /* Estilo para dar margen al formulario por la parte de arriba */
     .datos .formulario-login,
     .datos .formulario-register {
 
-        margin-top: 5em;
+        margin-top: 12em;
     }
     .datos button,
     .datos .enlaces button {
@@ -122,4 +182,10 @@ body {
 /* Ordenador de escritorio medio: 1440 x 900 px */
 @media only screen and (min-width: 1367px) and (max-width: 1440px) {
     
+    .datos .formulario-login,
+    .datos .formulario-register {
+
+        margin-top: 12em;
+    }
+
 }
