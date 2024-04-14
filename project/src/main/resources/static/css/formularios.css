@@ -69,6 +69,35 @@ body {
     font-size: 1.3em;
 }
 
+/*Boton de gogle*/
+.datos .btn-google,
+.datos .btn-google label{
+    background-color: #fff; 
+    color: #4285F4; 
+    border: 2px solid #4285F4;
+    border-radius: 5px;
+    padding-right: 14em;
+    font-size: 20px; 
+    margin-top: 3em;
+    margin-bottom: 5em;
+}
+
+.datos .enlaces span{
+    font-size: 1.3em;
+    a {
+        font-weight: bold;
+        text-decoration: underline;
+    }
+}
+
+
+.datos .letras-google {
+    font-size: 1.5em;
+}
+
+
+/*Fin boton de google*/
+
 .datos .formulario-login .enlaces,
 .datos .formulario-register .enlaces {
     text-align: center;
