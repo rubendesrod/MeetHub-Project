@@ -70,13 +70,12 @@ body {
 }
 
 /*Boton de gogle*/
-.datos .btn-google,
-.datos .btn-google label{
+.datos .btn-google{
     background-color: #fff; 
     color: #4285F4; 
     border: 2px solid #4285F4;
     border-radius: 5px;
-    padding-right: 14em;
+    padding-right: 13em;
     font-size: 20px; 
     margin-top: 3em;
     margin-bottom: 5em;
@@ -151,6 +150,28 @@ body {
         width: 10em;
         font-size: 0.8em;
     }
+    .datos .formulario-register{
+        font-size: 0.8em;
+    }
+    /*Boton de gogle y las letras*/
+    .texto{
+        font-size: 12px;
+    }
+    .datos .letras-google {
+        font-size: 1.2em;
+    }
+    .datos .btn-google{
+        padding-right: 7.7em;
+    }
+    .datos .btn-google svg{
+        width: 20px;
+    }
+    .datos .enlaces span{
+        font-size: 1.8em;
+        a{
+            margin-left: 0em;
+        }
+    }
 
     #CopyRight  {
         font-size: 0.8em;
@@ -182,6 +203,17 @@ body {
         height: 2.6em;
         width: 8em;
         font-size: 1.1em;
+    }
+    /*Boton de gogle y las letras*/
+    .texto{
+        font-size: 17px;
+    }
+    .datos .letras-google {
+        font-size: 1.2em;
+    }
+    .datos .btn-google{
+     
+        padding-right: 11.5em;
     }
 }
 
@@ -215,6 +247,32 @@ body {
     .datos .formulario-register {
 
         margin-top: 12em;
+    }
+
+}
+
+/* Ordenador de escritorio grande: 1440 x 900 px */
+@media only screen and (min-width: 1440px) and (max-width: 1920px) {
+    
+    .datos .titulo h1 {
+        font-size: 7em;
+    }
+    /*Estilo para los inputs*/
+    .datos .formulario-login .inputs input{
+        width: 20em;
+        height: 3em;
+    }
+    /* Estilo para dar margen al formulario por la parte de arriba */
+    .datos .formulario-login,
+    .datos .formulario-register {
+
+        margin-top: 12em;
+    }
+    .datos button,
+    .datos .enlaces button {
+        height: 4em;
+        width: 10em;
+        font-size: 1.5em;
     }
 
 }
