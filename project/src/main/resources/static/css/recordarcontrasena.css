@@ -6,3 +6,43 @@ body {
     padding: 0;
     overflow: hidden; /* Oculta las scrollbars */
 }
+
+
+#CopyRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px; /* Ajusta el margen según sea necesario */
+}
+
+.cuadrado{
+    background-color: whitesmoke;
+    border-radius: 20px;
+    width: 50%;
+    margin: 25%;
+    padding: 2em;
+    box-shadow: 4px 4px 0px 0px rgb(158, 158, 158);
+    form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        button{
+            width: 10em;
+        }
+        legend {
+            font-size: 3em;
+            font-weight: bold;
+            color: #143FD8;
+        }
+        label{
+            margin-bottom: 0.5em;
+            font-size: 2em;
+            color: black;
+        }
+        input{
+            font-size: 2em;
+            margin: 1em;
+        }
+    }
+}
