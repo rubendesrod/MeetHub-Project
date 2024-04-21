@@ -1,0 +1,38 @@
+/*Estilos que se aplican al body completo de la aplicación*/
+body{
+    background-color: #F0F2F5 !important;
+    overflow-x: hidden;
+}
+
+/*Estilos que se aplican a la barra de navegación*/
+.actual{
+    padding-left: 8em !important;
+    margin-top: 3em;
+    p{
+        color: black;
+        font-size: 3em;
+        font-weight: bold;
+    }
+}
+
+/*Estilos que se aplican a la barra de navegación*/
+.navBar{
+    border-radius: 20px;
+    height: 100vh;
+    background: linear-gradient(to bottom, #3888FF, #6D0BCE); /* Gradiente de color */
+    color: #ffffff; /* Color de texto blanco para mejor contraste */
+    padding-top: 5%;
+    h1{
+        font-size: 4em;
+    }
+    hr{
+        height: 4px;
+        width: 18em;
+        background-color: white;
+        opacity: 1;
+    }
+}
+
+.navBar .enlaces a{
+    color: white;
+}

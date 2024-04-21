@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/*Importación del css que comparten varios HTML*/
+@import url(./Menu_Header.css);
+
+.enlacesInternosContenedor{
+    background-color: white;
+    color: black;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.contenedorTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 1rem;
+    gap: 5rem;
+    .title p{
+        color: #80849E;
+        font-size: 15px;
+    }
+}
+
+.title {
+    flex-grow: 1;
+}
