@@ -2,13 +2,34 @@
 /*Importación del css que comparten varios HTML*/
 @import url(./Menu_Header.css);
 
-.enlacesInternosContenedor{
+.contendorEnlacesInternos{
     background-color: white;
     color: black;
     min-height: 40vh;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    margin-left: 19% !important;
+    h3{
+        margin: 1em;
+    }
+    hr{
+        height: 2px !important;
+    }
+    .enlacesInternos{
+        display: flex;
+        flex-direction: column;
+        a{
+            margin: 1.5em;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: font-size 0.3s ease;
+            &:hover{
+                color: rgb(157, 157, 157);
+                font-size: 110%;
+            }
+        }
+    }
 }
 
 .contenedorTitle{
@@ -16,7 +37,7 @@
     flex-direction: row;
     align-items: center;
     padding: 1rem;
-    gap: 5rem;
+    gap: 4rem;
     .title p{
         color: #80849E;
         font-size: 15px;
@@ -25,4 +46,111 @@
 
 .title {
     flex-grow: 1;
+}
+
+.dropdown{
+    padding-left: 90%;
+    img {
+       width: 50px !important;
+    }
+}
+
+.contenedorInformacion{
+    padding: 3em;
+    .fila {
+        margin: 2em;
+        .fechaTitulo{
+            font-weight: bold;
+            margin-bottom: 1em;
+        }
+        input{
+            border: none;
+            border-bottom: 2px solid black; 
+            border-radius: 0;
+            outline: none;
+        }
+        select{
+            border: none;
+            border-bottom: 2px solid black; 
+            border-radius: 0;
+            outline: none;
+        }
+    }
+}
+
+.contenedorCambiarPass{
+    padding: 3em;
+    /*Div que contiene los inputs para poner las contraseñas*/
+    .inputsContrasena{
+        margin: 2em;
+        input{
+            width: 400px;
+        }
+    }
+    p{
+        color: #80849E;
+    }
+}
+
+.contenedorBorrarCuenta{
+    padding: 3em;
+    p{
+        color: #80849E;
+    }
+}
+
+@media(min-width: 1199px) and (max-width: 1625px){
+
+    .contendorEnlacesInternos{
+        h3{
+            font-size: 1.5em;
+        }
+        .enlacesInternos{
+            a{
+                font-size: 0.9em;
+            }
+        }
+    }
+
+}
+
+@media(min-width: 1199px) and (max-width: 1453px){
+
+    .contendorEnlacesInternos{
+        h3{
+            font-size: 1.4em;
+        }
+    }
+
+}
+
+@media(min-width: 1199px) and (max-width: 1367px){
+
+    .contendorEnlacesInternos{
+        min-height: 30vh;
+        h3{
+            font-size: 1.3em;
+        }
+        .enlacesInternos{
+            a{
+                font-size: 0.7em;
+            }
+        }
+    }
+
+}
+
+/* Media query para pantallas tipo lg predefinido de bootstrap */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .contendorEnlacesInternos{
+        margin-left: 3% !important;
+        h3{
+            font-size: 1.5em;
+        }
+        .enlacesInternos{
+            a{
+                font-size: 0.9em;
+            }
+        }
+    }
 }

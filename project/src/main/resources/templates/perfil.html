@@ -9,6 +9,8 @@
     <!-- Bibliotecas de recursos de bootrstrap5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Script del poppermin.js para el dropdowm-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <!--Enlaces para añadir el switchButton-->
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
@@ -25,34 +27,64 @@
             <p>Perfil</p>
         </div>
         <!--2 columna Avatar y Opciones-->
-        <div class="col-5">
-            AVATAR
+        <div class="col-5 d-flex align-items-center flex-row">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="d-xl-none"><a class="dropdown-item" href="#">Inicio</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="#">Crear reunión</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="#">Editar reunión</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="#">Calendario</a></li>
+                  <li><a class="dropdown-item" href="./perfil.html">Perfil</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="./login.html">Cerrar Sesión</a></li>
+                </ul>
+              </div>
         </div>
     </div>
     <!-- 2 Fila -->
-    <div class="row align-items-start gap-4 px-4">
+    <div class="row align-items-start gap-5">
          <!--1 columna Barra de Navegación-->
-         <div class="col-2 navBar d-none d-lg-block rounded-4">
-            <h1>MeetHub</h1>
+         <div class="col-2 navBar d-none d-xl-flex flex-column rounded-5 position-fixed">
+            <h1>MH  MeetHub</h1>
             <hr>
             <div class="enlaces">
-                <ul>
-                    <li><a href="#">Inicio</a></li>
-                    <li><a href="#">Crear Reunión</a></li>
-                    <li><a href="#">Editar Reunión</a></li>
-                    <li><a href="#">Calendario</a></li>
+                <ul class="list-group list-group-flush lista">
+                    <li class="list-group-item bg-transparent">
+                        <img src="../static/img/Svg_Reunion.png" alt="Svg_Reunion">
+                        <a href="#">Inicio</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <img src="../static/img/Svg_Crear.png" alt="Svg_Crear">
+                        <a href="#">Crear Reunión</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <img src="../static/img/Svg_Editar.png" alt="Svg_Editar">
+                        <a href="#">Editar Reunión</a>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <img src="../static/img/Svg_Calendario.png" alt="Svg_Calendario">
+                        <a href="#">Calendario</a>
+                    </li>
                 </ul>
             </div>
          </div>
         <!--2 columna Contenido-->
-        <div class="rounded-4 col-2 shadow enlacesInternosContenedor d-none d-lg-block">
-            <!--Enlaces internor que te mueven por el mural de la información-->
-
+        <div class="rounded-5 col-xl-2 col-lg-3 offset-2 shadow contendorEnlacesInternos d-none d-lg-block offset-lg-0">
+            <h3>Enlaces internos</h3>
+            <hr>
+            <div class="enlacesInternos">
+                <a href="#contenedorInformacion">INFORMACION BÁSICA</a>
+                <a href="#contenedorCambiarPass">CAMBIAR CONTRASEÑA</a>
+                <a href="#contenedorBorrarCuenta">BORRAR CUENTA</a>
+            </div>
         </div>
         <!--3 columna Contenido-->
-        <div class="col-12 col-lg-7">
+        <div class="col-12 col-xl-7 col-lg-8">
             <!--Primer Section-->
-            <section class="w-100 shadow px-5 rounded-4 contenedorTitle bg-white">
+            <section class="w-100 shadow px-5 rounded-5 contenedorTitle bg-white">
                 <div class="avatar">
                     <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
                 </div>
@@ -64,12 +96,131 @@
                     <input type="checkbox" data-style="ios" data-toggle="switchbutton" checked data-onlabel="Tema claro" data-offlabel="Tema oscuro" data-onstyle="light" data-offstyle="dark" data-width="140" data-height="40">
                 </div>
             </section>
-            <!--Primer Section-->
-            <section class="w-100 shadow px-5 rounded-4 contenedor my-5 bg-white">
-                <h1>Información Básica</h1>
-                <p>Nombre</p>
+            <!--Segundo Section-->
+            <section id="contenedorInformacion" class="w-100 shadow px-5 rounded-4 contenedorInformacion my-5 bg-white" >
+                <h1>Informacion Básica</h1>
+                <form action="" name="datosPersonales">
+                    <!--Primera fila del formulario Información básica-->
+                    <div class="row gap-5 fila">
+                        <div class="col-5 d-flex flex-column">
+                            <label for="nombrePersona">Nombre</label>
+                            <input type="text" name="nombrePersona">
+                        </div>
+                        <div class="col-5 d-flex flex-column">
+                            <label for="apellidosPersona">Apellidos</label>
+                            <input type="text" name="apellidosPersona">
+                        </div>
+                    </div>
+                    <!--Segunda fila del formulario información básica-->
+                    <div class="row fila">
+                        <div class="col-4 d-flex flex-column align-self-end">
+                            <label for="sexoPersona">Sexo</label>
+                            <select name="sexoPersona" id="sexoPersona">
+                                <option value="0"></option>
+                                <option value="hombre">Hombre</option>
+                                <option value="mujer">Mujer</option>
+                            </select>
+                        </div>
+                        <div class="col-8 d-flex flex-column">
+                            <label class="fechaTitulo">Fecha Nacimiento</label>
+                            <!--Fila nueva para poder mostrar el seleccionable de la fecha de nacimiento-->
+                            <div class="row">
+                                <div class="col-2 d-flex flex-column">
+                                    <label for="diaPersona">Día</label>
+                                    <select name="diaPersona" id="dia">
+                                        <option value="0"></option>
+                                    </select>
+                                </div>
+                                <div class="col-4 d-flex flex-column">
+                                    <label for="mesPersona">Mes</label>
+                                    <select name="mesPersona" id="mes">
+                                        <option value="0"></option>
+                                    </select>
+                                </div>
+                                <div class="col-4 d-flex flex-column">
+                                    <label for="anyoPersona">Año</label>
+                                    <select name="anyoPersona" id="anyo">
+                                        <option value="0"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!--Tercera fila del formulario Información básica-->
+                    <div class="row gap-5 fila">
+                        <div class="col-5 d-flex flex-column">
+                            <label for="correoPersona">Correo</label>
+                            <input type="email" name="correoPersona" disabled placeholder="example@gmail.com">
+                        </div>
+                        <div class="col-5 d-flex flex-column">
+                            <label for="empreaPersona">Empresa</label>
+                            <input type="text" name="empreaPersona" placeholder="">
+                        </div>
+                    </div>
+                    <!--Cuarta fila del formulario Información básica-->
+                    <div class="row gap-5 fila">
+                        <div class="col-5 d-flex flex-column">
+                            <label for="puestoTrabajoPersona">Puesto de Trabajo</label>
+                            <input type="text" name="puestoTrabajoPersona" placeholder="">
+                        </div>
+                        <div class="col-6 align-self-end d-flex flex-column align-items-end">
+                            <button type="button" id="btnActualizar" class="btn btn-outline-success">ACTUALIZAR INFORMACION</button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+            <!--Tercer Section-->
+            <section id="contenedorCambiarPass" class="w-100 shadow px-5 rounded-4 contenedorCambiarPass my-5 bg-white">
+                <h1>Cambiar Contraseña</h1>
+                <form action="#" method="post">
+                    <div class="d-flex flex-column align-items-center inputsContrasena">
+                        <div class="form-floating my-3">
+                            <input type="password" class="form-control" id="passActual" placeholder="Password">
+                            <label for="floatingPassword">Contraseña actual</label>
+                          </div>
+                          <div class="form-floating  my-3">
+                            <input type="text" class="form-control" id="passNueva" placeholder="Password">
+                            <label for="floatingPassword">Nueva contraseña</label>
+                          </div>
+                          <div class="form-floating  my-3">
+                            <input type="password" class="form-control" id="passRepetida" placeholder="Password">
+                            <label for="floatingPassword">Repite la nueva contraseña</label>
+                          </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-5">
+                            <h3>Requerimientos de la Contraseña</h3>
+                            <p>Sigue los pasos para una contraseña, fuerte</p>
+                            <ul>
+                                <li>Un carácter especial</li>
+                                <li>Mínimo 6 carácteres</li>
+                                <li>Un número (dos recomendado)</li>
+                                <li>Cambiala a menudo</li>
+                            </ul>
+                        </div>
+                        <div class="col-7 align-self-end d-flex flex-column align-items-end">
+                            <button type="button" id="btnActualizarPass" class="btn btn-outline-success">CAMBIAR CONTRASEÑA</button>
+                        </div>
+                    </div>
+                    
+                </form>
+            </section>
+             <!--Cuarto Section-->
+             <section id="contenedorBorrarCuenta" class="w-100 shadow px-5 rounded-5 bg-white contenedorBorrarCuenta">
+                <h2>Borrar Cuenta</h2>
+                <div class="row my-4">
+                    <div class="col-5">
+                        <p>Una vez que eliminas tu cuenta, no hay vuelta atrás.<br>
+                            Por favor esté seguro de que quieres hacerlo</p>
+                    </div>
+                    <div class="col-7  d-flex flex-column align-items-end">
+                        <button type="button" id="btnBorrarCuenta" class="btn btn-outline-danger">BORRAR CUENTA</button>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
+    <!--Script para cargar los select-->
+    <script src="../static/JS/cargaSelect.js"></script>
 </body>
 </html>
