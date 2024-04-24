@@ -30,7 +30,7 @@
  // Función para cargar los años hasta 1940
  function cargarAnyos() {
      var year = new Date().getFullYear();
-     for (var i = year; i >= 1940; i--) {
+     for (var i = year; i >= 1930; i--) {
          var option = document.createElement("option");
          option.text = i;
          option.value = i;

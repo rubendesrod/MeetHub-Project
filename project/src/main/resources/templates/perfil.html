@@ -23,11 +23,11 @@
     <!-- 1 Fila -->
     <div class="row primerafila">
         <!--1 columna Nombre pagina-->
-        <div class="col-6 actual">
+        <div class="col-3 actual col-sm-3">
             <p>Perfil</p>
         </div>
         <!--2 columna Avatar y Opciones-->
-        <div class="col-5 d-flex align-items-center flex-row">
+        <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9 ">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
@@ -89,7 +89,7 @@
                     <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
                 </div>
                 <div class="title">
-                    <h1 id="nombre" >Rubén Descalzo Rodríguez</h1>
+                    <h2 id="nombre" >Rubén Descalzo Rodríguez</h2>
                     <p id="puestoTrabajo" >Getronics - Programador</p>
                 </div>
                 <div class="switch">
@@ -102,68 +102,71 @@
                 <form action="" name="datosPersonales">
                     <!--Primera fila del formulario Información básica-->
                     <div class="row gap-5 fila">
-                        <div class="col-5 d-flex flex-column">
-                            <label for="nombrePersona">Nombre</label>
-                            <input type="text" name="nombrePersona">
+                        <div class="col-md-5 d-flex flex-column col-sm-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="inputNombre" name="nombrePersona" placeholder="Nombre">  
+                                <label for="floatingInputGrid">Nombre</label>
+                            </div>
                         </div>
-                        <div class="col-5 d-flex flex-column">
-                            <label for="apellidosPersona">Apellidos</label>
-                            <input type="text" name="apellidosPersona">
+                        <div class="col-md-5 d-flex flex-column col-sm-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="inputApellidos" name="apellidoPersona" placeholder="Apellidos">
+                                <label for="floatingInputGrid">Apellidos</label>
+                            </div>
                         </div>
                     </div>
                     <!--Segunda fila del formulario información básica-->
                     <div class="row fila">
-                        <div class="col-4 d-flex flex-column align-self-end">
-                            <label for="sexoPersona">Sexo</label>
-                            <select name="sexoPersona" id="sexoPersona">
-                                <option value="0"></option>
-                                <option value="hombre">Hombre</option>
-                                <option value="mujer">Mujer</option>
-                            </select>
+                        <div class="col-md-4 d-flex flex-column align-self-end col-sm-12">
+                            <div class="form-floating">
+                                <select class="form-select" id="sexoPersona" aria-label="Floating label select example">
+                                    <option value="0">Abre el menú</option>
+                                    <option value="hombre">Hombre</option>
+                                    <option value="mujer">Mujer</option>
+                                </select>
+                                <label for="floatingSelectGrid">Sexo</label>
+                            </div>
                         </div>
-                        <div class="col-8 d-flex flex-column">
+                        <div class="col-md-8 d-flex flex-column col-sm-12 my-sm-4 my-md-0">
                             <label class="fechaTitulo">Fecha Nacimiento</label>
                             <!--Fila nueva para poder mostrar el seleccionable de la fecha de nacimiento-->
                             <div class="row">
-                                <div class="col-2 d-flex flex-column">
-                                    <label for="diaPersona">Día</label>
-                                    <select name="diaPersona" id="dia">
-                                        <option value="0"></option>
-                                    </select>
+                                <div class="col-md-2 d-flex flex-column col-sm-3">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="diaPersona" id="dia" aria-label="Floating label select example">
+                                            <option value="0"></option>
+                                        </select>
+                                        <label for="floatingSelectGrid">Dia</label>
+                                    </div>
                                 </div>
-                                <div class="col-4 d-flex flex-column">
-                                    <label for="mesPersona">Mes</label>
-                                    <select name="mesPersona" id="mes">
-                                        <option value="0"></option>
-                                    </select>
+                                <div class="col-md-4 d-flex flex-column col-sm-5">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="mesPersona" id="mes" aria-label="Floating label select example">
+                                            <option value="0"></option>
+                                        </select>
+                                        <label for="floatingSelectGrid">Mes</label>
+                                    </div>
                                 </div>
-                                <div class="col-4 d-flex flex-column">
-                                    <label for="anyoPersona">Año</label>
-                                    <select name="anyoPersona" id="anyo">
-                                        <option value="0"></option>
-                                    </select>
+                                <div class="col-md-4 d-flex flex-column col-sm-4">
+                                    <div class="form-floating">
+                                        <select class="form-select" name="anyoPersona" id="anyo" aria-label="Floating label select example">
+                                            <option value="0"></option>
+                                        </select>
+                                        <label for="floatingSelectGrid">Año</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                      <!--Tercera fila del formulario Información básica-->
-                    <div class="row gap-5 fila">
-                        <div class="col-5 d-flex flex-column">
-                            <label for="correoPersona">Correo</label>
-                            <input type="email" name="correoPersona" disabled placeholder="example@gmail.com">
+                    <div class="row gap-5 gap-sm-3 fila">
+                        <div class="col-md-5 d-flex flex-column col-sm-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="correoPersona" placeholder="Email">  
+                                <label for="floatingInputGrid">Email</label>
+                            </div>
                         </div>
-                        <div class="col-5 d-flex flex-column">
-                            <label for="empreaPersona">Empresa</label>
-                            <input type="text" name="empreaPersona" placeholder="">
-                        </div>
-                    </div>
-                    <!--Cuarta fila del formulario Información básica-->
-                    <div class="row gap-5 fila">
-                        <div class="col-5 d-flex flex-column">
-                            <label for="puestoTrabajoPersona">Puesto de Trabajo</label>
-                            <input type="text" name="puestoTrabajoPersona" placeholder="">
-                        </div>
-                        <div class="col-6 align-self-end d-flex flex-column align-items-end">
+                        <div class="col-md-6 align-self-end d-flex flex-column align-items-end">
                             <button type="button" id="btnActualizar" class="btn btn-outline-success">ACTUALIZAR INFORMACION</button>
                         </div>
                     </div>
@@ -214,8 +217,36 @@
                             Por favor esté seguro de que quieres hacerlo</p>
                     </div>
                     <div class="col-7  d-flex flex-column align-items-end">
-                        <button type="button" id="btnBorrarCuenta" class="btn btn-outline-danger">BORRAR CUENTA</button>
+                        <button type="button" id="btnBorrarCuenta" class="btn btn-outline-danger"  data-toggle="modal" data-target="#exampleModal">BORRAR CUENTA</button>
                     </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Borrar Cuenta</h5>
+                            </div>
+                            <div class="modal-body">
+                                <p>Si estás seguro de borrar la cuenta pulsa en el Botón <b>ACEPTAR</b></p>
+                            </div>
+                            <div class="modal-footer">
+                            <button id="btnCerrar" type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+                            <button id="btnAceptar" type="button" class="btn btn-success">ACEPTAR</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!--Script para la apertura y cierra de modal-->
+                    <script>
+                        // Para abrir el modal en el botón de Borrar Cuenta
+                        document.getElementById('btnBorrarCuenta').addEventListener('click', function() {
+                            $('#exampleModal').modal('show');
+                        });
+                        // Para cerrar el modal en el botón de cerrar
+                        document.getElementById('btnCerrar').addEventListener('click', function() {
+                            $('#exampleModal').modal('hide');
+                        });
+                    </script>
                 </div>
             </section>
         </div>

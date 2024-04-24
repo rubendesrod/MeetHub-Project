@@ -50,3 +50,14 @@ body{
         }
     }
 }
+
+
+/* Media query para cuando ya solo queda la ultima columna */
+@media (max-width: 576px) {
+    
+    .primerafila{
+        .actual{
+            font-size: 0.6em;
+        }
+    }
+}
