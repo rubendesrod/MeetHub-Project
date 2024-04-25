@@ -16,6 +16,7 @@ body{
 
 /*Estilos que se aplican a la barra de navegación*/
 .navBar{
+    margin-left: 2em;
     border-radius: 20px;
     height: 100vh;
     background: linear-gradient(to bottom, #3888FF, #6D0BCE); /* Gradiente de color */
@@ -57,7 +58,23 @@ body{
     
     .primerafila{
         .actual{
-            font-size: 0.6em;
+            font-size: 0.6 em;
+        }
+    }
+}
+
+/* Media query para cuando ya solo queda la ultima columna */
+@media (max-width: 1442px) {
+    .navBar{
+        margin-left: 1em;
+        h1{
+            font-size: 1.7em;
+        }
+        hr{
+            width: 8em;
+        }
+        .enlaces{
+            
         }
     }
 }

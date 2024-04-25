@@ -27,7 +27,7 @@
             <p>Perfil</p>
         </div>
         <!--2 columna Avatar y Opciones-->
-        <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9 ">
+        <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
@@ -89,11 +89,8 @@
                     <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
                 </div>
                 <div class="title">
-                    <h2 id="nombre" >Rubén Descalzo Rodríguez</h2>
-                    <p id="puestoTrabajo" >Getronics - Programador</p>
-                </div>
-                <div class="switch">
-                    <input type="checkbox" data-style="ios" data-toggle="switchbutton" checked data-onlabel="Tema claro" data-offlabel="Tema oscuro" data-onstyle="light" data-offstyle="dark" data-width="140" data-height="40">
+                    <h2 id="nombre">Rubén Descalzo Rodríguez</h2>
+                    <p>Usuario de google</p>
                 </div>
             </section>
             <!--Segundo Section-->
@@ -127,7 +124,7 @@
                                 <label for="floatingSelectGrid">Sexo</label>
                             </div>
                         </div>
-                        <div class="col-md-8 d-flex flex-column col-sm-12 my-sm-4 my-md-0">
+                        <div class="col-md-8 d-flex flex-column col-sm-12 my-sm-4 my-md-0 my-3">
                             <label class="fechaTitulo">Fecha Nacimiento</label>
                             <!--Fila nueva para poder mostrar el seleccionable de la fecha de nacimiento-->
                             <div class="row">
@@ -167,6 +164,15 @@
                             </div>
                         </div>
                         <div class="col-md-6 align-self-end d-flex flex-column align-items-end">
+                            <div class="input-group">
+                                <label class="input-group-text" for="inputGroupFile01">Avatar</label>
+                                <input type="file" class="form-control" id="inputGroupFile01">
+                              </div>
+                        </div>
+                    </div>
+                     <!--Tercera fila del formulario Información básica-->
+                     <div class="row gap-5 gap-sm-3 fila">
+                        <div class="col align-self-end d-flex flex-column align-items-center">
                             <button type="button" id="btnActualizar" class="btn btn-outline-success">ACTUALIZAR INFORMACION</button>
                         </div>
                     </div>
@@ -191,7 +197,7 @@
                           </div>
                     </div>
                     <div class="row">
-                        <div class="col-5">
+                        <div class="col-sm-5 col-auto">
                             <h3>Requerimientos de la Contraseña</h3>
                             <p>Sigue los pasos para una contraseña, fuerte</p>
                             <ul>
@@ -201,7 +207,7 @@
                                 <li>Cambiala a menudo</li>
                             </ul>
                         </div>
-                        <div class="col-7 align-self-end d-flex flex-column align-items-end">
+                        <div class="col-sm-7 align-self-end d-flex flex-column align-items-sm-end align-items-center">
                             <button type="button" id="btnActualizarPass" class="btn btn-outline-success">CAMBIAR CONTRASEÑA</button>
                         </div>
                     </div>
@@ -212,7 +218,7 @@
              <section id="contenedorBorrarCuenta" class="w-100 shadow px-5 rounded-5 bg-white contenedorBorrarCuenta">
                 <h2>Borrar Cuenta</h2>
                 <div class="row my-4">
-                    <div class="col-5">
+                    <div class="col-sm-5">
                         <p>Una vez que eliminas tu cuenta, no hay vuelta atrás.<br>
                             Por favor esté seguro de que quieres hacerlo</p>
                     </div>
