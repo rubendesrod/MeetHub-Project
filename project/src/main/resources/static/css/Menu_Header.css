@@ -28,12 +28,13 @@ body{
     }
     hr{
         height: 4px;
-        width: 13em;
+        width: 10em;
         background-color: white;
         opacity: 1;
     }
 }
 
+/*Estilo para la los enlaces de la barra de navegación*/
 .navBar .enlaces{
     display: block;
     .lista {
@@ -46,12 +47,19 @@ body{
             color: white;
             transition: font-size 0.4s ease;
             &:hover{
-                font-size: 115%; 
+                font-size: 110%; 
             }
         }
     }
 }
 
+/*Estilos para el dropdown de enlaces*/
+.dropdown{
+    padding-left: 90%;
+    img {
+       width: 50px !important;
+    }
+}
 
 /* Media query para cuando ya solo queda la ultima columna */
 @media (max-width: 576px) {
@@ -74,7 +82,15 @@ body{
             width: 8em;
         }
         .enlaces{
-            
+            .lista{
+                a{
+                    font-size: 0.7em;
+                    &:hover{
+                        font-size: 80%; 
+                    }
+                }
+                img{width: 20px;}
+            }
         }
     }
 }

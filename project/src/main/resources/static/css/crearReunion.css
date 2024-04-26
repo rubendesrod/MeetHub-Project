@@ -1,0 +1,56 @@
+@charset "UTF-8";
+/*Importación del css que comparten varios HTML*/
+@import url(./Menu_Header.css);
+
+.contenedorCrearReunion{
+        margin: 1%
+}
+
+@media (min-width:1199px){
+      .contenedorCrearReunion{
+        margin-left: 21% !important;
+      }
+}
+
+@media (max-width:576px){
+        .participantesReunion{
+                input{
+                        
+                }
+        }
+  }
+
+.sectionTitulo{
+        padding: 1.5em;
+}
+
+.list-group {
+        border-radius: 0.25rem;
+        overflow: hidden;
+}
+.list-group-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+}
+.delete-btn {
+        cursor: pointer;
+        color: red;
+        font-size: 1.2rem;
+}
+.label-wrapper {
+        margin-bottom: 0.5rem;
+}
+.error-message {
+        color: red;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+}
+
+.datosReunion{
+        p{
+                color: #80849E;
+        }
+}
+

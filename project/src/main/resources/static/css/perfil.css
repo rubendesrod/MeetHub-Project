@@ -50,13 +50,6 @@
     flex-grow: 1;
 }
 
-.dropdown{
-    padding-left: 90%;
-    img {
-       width: 50px !important;
-    }
-}
-
 .contenedorInformacion{
     padding: 3em;
     .fila {
