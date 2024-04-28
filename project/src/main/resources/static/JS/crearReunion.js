@@ -19,7 +19,7 @@ document.getElementById('botonAnadirIntegrante').addEventListener('click', funct
             deleteBtn.onclick = function() {
                 this.parentElement.remove();
             };
-
+            // email
             var emailText = document.createElement('span');
             emailText.textContent = email;
             emailText.style.marginLeft = '10px'; // Añadir algo de espacio entre la "X" y el correo
