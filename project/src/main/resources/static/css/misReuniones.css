@@ -3,6 +3,17 @@
 @import url(./Menu_Header.css);
 
 
+.contenedorMisReuniones{
+        margin: 1%
+}
+
+@media (min-width:1199px){
+    .contenedorMisReuniones{
+        margin-left: 21% !important;
+    }
+}
+
+
 /*Mediaquerys para la tabla y sus datos*/
 @media (max-width:660px) {
     .seccionEditar{

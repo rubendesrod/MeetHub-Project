@@ -2,3 +2,57 @@
 /*Importación del css que comparten varios HTML*/
 @import url(./Menu_Header.css);
 
+.contenedorCalendario{
+    margin: 1%
+}
+
+@media (min-width:1199px){
+    .contenedorCalendario{
+        margin-left: 21% !important;
+    }
+}
+
+/*Estilos para el calendario*/
+.fc-header-toolbar {
+    background-color: #333; /* Color de fondo de la cabecera */
+    color: white; /* Color del texto */
+}
+
+.fc-button {
+    background-color: #555; /* Color de fondo de los botones */
+    color: white; /* Color del texto de los botones */
+    border-color: #444; /* Color del borde de los botones */
+}
+
+.fc-button:hover {
+    background-color: #777; /* Color de fondo de los botones al pasar el ratón */
+}
+.fc-day { /* Todos los días en la vista */
+    background-color: #eee; /* Color de fondo */
+    color: #333; /* Color del texto */
+}
+
+.fc-day-today { /* El día actual */
+    background-color: #d1e8ff; /* Color de fondo diferente para hoy */
+}
+
+.fc-day-weekend { /* Los días del fin de semana */
+    background-color: #f9f9f9; /* Color de fondo para los fines de semana */
+}
+.fc .fc-divider {
+    border-color: #bbb; /* Color de las líneas divisorias */
+}
+
+.fc .fc-daygrid-day-frame {
+    background-color: #fafafa; /* Fondo de cada día */
+}
+
+/*Estilo para el popup de cuando se pasa el cursor por encima de un evento*/
+.tippy-box {
+    font-size: 12px; /* Ajusta el tamaño del texto dentro del tooltip */
+    padding: 4px 8px; /* Reduce el padding para hacer el tooltip más compacto */
+  }
+  /*Anchura y altura máxima del calendario*/
+  #calendar {
+      height: 70vh;
+  }
