@@ -62,7 +62,7 @@
                     </li>
                     <li class="list-group-item bg-transparent">
                         <img src="../static/img/Svg_Editar.png" alt="Svg_Editar">
-                        <a href="#">Mis Reuniones</a>
+                        <a href="./misReuniones.html">Mis Reuniones</a>
                     </li>
                     <li class="list-group-item bg-transparent">
                         <img src="../static/img/Svg_Calendario.png" alt="Svg_Calendario">
@@ -80,18 +80,47 @@
             <!--Segundo section que contiene el Calendario-->
             <section class="w-100 shadow px-5 rounded-5 seccionCrear bg-white my-4 p-4">
                 <!--Fila en donde se va a mostrar los calendarios disponibles de la persona-->
-                <div class="row d-flex justify-content-between">
+                <div class="row d-flex justify-content-between my-4">
                     <!--En esta columna irán los diferentes calendarios que tiene disponible el usuario-->
                     <div class="col-6">
-                        
-                    </div>
-                    <!--En esta columna irá el botón del más por si se quiere añadir un evento en el día-->
-                    <div class="col-6">
-
+                        <!--Select que contiene los calendarios que tiene disponibles el usuario y podrá seleccionar cual quiere-->
+                        <div class="form-floating">
+                            <select class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión" name="selectCalendario">
+                                <option value="0" selected>Default</option>
+                                <option value="1">mi-Calendario1</option>
+                                <option value="2">mi-Calendario2</option>
+                            </select>
+                            <label for="floatingSelect">Calendarios</label>
+                        </div>
                     </div>
                 </div>
                 <div id='calendar'></div>
                 <script src="../static/JS/calendario.js"></script>
+                <!-- Modal para cuando se haga clic en un día de la semana -->
+                <div class="modal fade" id="dayClickModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!--Header del modal-->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalLabel">Agregar un evento</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="meetingName" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control" id="eventName">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="meetingName" class="form-label">Descripcion</label>
+                                    <input type="text" class="form-control" id="eventDescrip">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Agregar Evento</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>             
         </div>
     </div>

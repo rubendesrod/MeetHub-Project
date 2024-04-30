@@ -12,47 +12,142 @@
     }
 }
 
-/*Estilos para el calendario*/
-.fc-header-toolbar {
-    background-color: #333; /* Color de fondo de la cabecera */
-    color: white; /* Color del texto */
-}
-
-.fc-button {
-    background-color: #555; /* Color de fondo de los botones */
-    color: white; /* Color del texto de los botones */
-    border-color: #444; /* Color del borde de los botones */
-}
-
-.fc-button:hover {
-    background-color: #777; /* Color de fondo de los botones al pasar el ratón */
-}
-.fc-day { /* Todos los días en la vista */
-    background-color: #eee; /* Color de fondo */
-    color: #333; /* Color del texto */
-}
-
-.fc-day-today { /* El día actual */
-    background-color: #d1e8ff; /* Color de fondo diferente para hoy */
-}
-
-.fc-day-weekend { /* Los días del fin de semana */
-    background-color: #f9f9f9; /* Color de fondo para los fines de semana */
-}
-.fc .fc-divider {
-    border-color: #bbb; /* Color de las líneas divisorias */
-}
-
-.fc .fc-daygrid-day-frame {
-    background-color: #fafafa; /* Fondo de cada día */
+/*Estilo para el select de los calendarios*/
+#floatingSelect{
+    width: 300px;
 }
 
 /*Estilo para el popup de cuando se pasa el cursor por encima de un evento*/
 .tippy-box {
     font-size: 12px; /* Ajusta el tamaño del texto dentro del tooltip */
     padding: 4px 8px; /* Reduce el padding para hacer el tooltip más compacto */
-  }
-  /*Anchura y altura máxima del calendario*/
-  #calendar {
-      height: 70vh;
-  }
+}
+
+
+/*altura máxima del calendario*/
+#calendar {
+    height: 60vh;
+}
+
+/*-------------Estilos para el calendario----------*/
+
+/*Estilo para barra de herramientas encima del calendario*/
+.fc-header-toolbar {
+    color: rgb(0, 0, 0);
+}
+
+/*Estilo para todos los días*/
+.fc-day { 
+    background-color: #F0F2F5 ;
+    color: white;
+    a{
+        text-decoration: none;
+        &:hover{
+            color: black;
+            cursor: default;
+        }
+    }
+}
+
+/* Colores de lunes a viernes */
+.fc-day:not(.fc-day-sat):not(.fc-day-sun) {
+    background-color: #a3d5f7;
+}
+
+/*Colores para los fines de semana*/
+.fc-day-sun, .fc-day-sat {
+    background-color: #e4c6fa;
+}
+
+/*Color para línea que dividen la tabla*/
+.fc .fc-divider {
+    border-color: #7d7b7b;
+}
+
+/*Color de fondo para cada día*/
+.fc .fc-daygrid-day-frame {
+    background-color: #fafafa; /* Fondo de cada día */
+    /*Fondo para cuando pasa el raton*/
+    &:hover{
+        background-color: #ededed;
+        cursor: pointer;
+    }
+}
+
+/* Botones de navegacion izquierda y derecha */
+.fc .fc-prev-button, .fc .fc-next-button {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 15px;
+    padding: 1px;
+}
+
+/*Estilos para el botón que esté activo*/
+.fc .fc-button-active{
+    background-color: #2b6bca !important;
+    border-color: #2b6bca !important;
+}
+
+/*Estilos para los botones de mes semana y día*/
+.fc-dayGridMonth-button, .fc-dayGridWeek-button, .fc-dayGridDay-button{
+    background-color: #3888FF !important;
+    border-color: #3888FF !important;
+}
+
+/*Estilos para el hover de los botones de mes semana y día*/
+.fc-dayGridMonth-button:hover, .fc-dayGridWeek-button:hover, .fc-dayGridDay-button:hover{
+    background-color: #2b6bca !important;
+    border-color: #2b6bca !important;
+}
+
+/*Estilos para el hover de los botones de la navegación*/
+.fc .fc-prev-button:hover, .fc .fc-next-button:hover {
+    background-color: #218838; /* Verde oscuro */
+    border-color: #218838;
+}
+
+
+/*-------------------MEDIA QUERYS----------------------*/
+
+@media (max-width: 640px){
+
+    /* Estilo para el título dentro de la toolbar */
+    .fc .fc-toolbar-title {
+        font-size: 18px; 
+        font-weight: bold !important;
+    }
+    /*Estilo para hacer los botones mas pequeños*/
+    .fc-button{
+        font-size: 14px !important;
+    }
+
+}
+
+@media (max-width: 640px){
+
+    /* Estilo para el título dentro de la toolbar */
+    .fc .fc-toolbar-title {
+        font-size: 18px; 
+        font-weight: bold !important;
+    }
+    /*Estilo para hacer los botones mas pequeños*/
+    .fc-button{
+        font-size: 14px !important;
+    }
+
+}
+
+@media (max-width: 436px){
+
+    /* Estilo para el título dentro de la toolbar */
+    .fc .fc-toolbar-title {
+        font-size: 12px; 
+        font-weight: bold !important;
+    }
+    /*Estilo para hacer los botones mas pequeños*/
+    .fc-button{
+        font-size: 12px !important;
+    }
+
+}
+
