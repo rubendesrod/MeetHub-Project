@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+
+body {
+    background-image: url("../img/fondo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Oculta las scrollbars */
+}
+
+
+#CopyRight {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 10px; /* Ajusta el margen según sea necesario */
+    color: aliceblue;
+}
+
+fieldset{
+    legend{
+        font-size: 2em;
+    }
+    .form-floating{
+        font-size:1em;
+        input{
+            width: 300px;
+        }
+    }
+}
+
+@media (max-width:567px){
+    fieldset{
+        legend{
+            font-size: 1em;
+        }
+        .form-floating{
+            font-size:1em;
+            input{
+                font-size: 1em;
+                width: 200px;
+            }
+        }
+    }
+}
