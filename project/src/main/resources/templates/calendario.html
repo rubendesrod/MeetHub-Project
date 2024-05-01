@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendario | MeetHub</title>
-    <link rel="stylesheet" href="../static/css/calendario.css">
-    <link rel="icon" type="image/x-icon" href="../static/img/webcam.png">
+    <link rel="stylesheet" href="/css/calendario.css">
+    <link rel="icon" type="image/x-icon" href="/img/webcam.png">
     <!-- Bootstrap CSS and JS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -33,16 +33,16 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="../static/img/Avatar.png" alt="Avatar de Perfil">
+                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
                 </button>
                 <!--Enlaces que se despliegan con el Dropdown-->
                 <ul class="dropdown-menu">
-                  <li class="d-xl-none"><a class="dropdown-item" href="./crearReunion.html">Crear Reunión</a></li>
-                  <li class="d-xl-none"><a class="dropdown-item" href="./misReuniones.html">Mis Reuniones</a></li>
-                  <li class="d-xl-none"><a class="dropdown-item" href="./calendario.html">Calendario</a></li>
-                  <li><a class="dropdown-item" href="./perfil.html">Perfil</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="/crearReunion">Crear Reunión</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="/misReuniones">Mis Reuniones</a></li>
+                  <li class="d-xl-none"><a class="dropdown-item" href="/calendario">Calendario</a></li>
+                  <li><a class="dropdown-item" href="/perfil">Perfil</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="./login.html">Cerrar Sesión</a></li>
+                  <li><a class="dropdown-item" href="/">Cerrar Sesión</a></li>
                 </ul>
               </div>
         </div>
@@ -57,16 +57,16 @@
             <div class="enlaces">
                 <ul class="list-group list-group-flush lista">
                     <li class="list-group-item bg-transparent">
-                        <img src="../static/img/Svg_Crear.png" alt="Svg_Crear">
-                        <a href="./crearReunion.html">Crear Reunión</a>
+                        <img src="/img/Svg_Crear.png" alt="Svg_Crear">
+                        <a href="/crearReunion">Crear Reunión</a>
                     </li>
                     <li class="list-group-item bg-transparent">
-                        <img src="../static/img/Svg_Editar.png" alt="Svg_Editar">
-                        <a href="./misReuniones.html">Mis Reuniones</a>
+                        <img src="/img/Svg_Editar.png" alt="Svg_Editar">
+                        <a href="/misReuniones">Mis Reuniones</a>
                     </li>
                     <li class="list-group-item bg-transparent">
-                        <img src="../static/img/Svg_Calendario.png" alt="Svg_Calendario">
-                        <a href="./calendario.html">Calendario</a>
+                        <img src="/img/Svg_Calendario.png" alt="Svg_Calendario">
+                        <a href="/calendario">Calendario</a>
                     </li>
                 </ul>
             </div>
@@ -95,7 +95,7 @@
                     </div>
                 </div>
                 <div id='calendar'></div>
-                <script src="../static/JS/calendario.js"></script>
+                <script src="/JS/calendario.js"></script>
                 <!-- Modal para cuando se haga clic en un día de la semana -->
                 <div class="modal fade" id="dayClickModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">

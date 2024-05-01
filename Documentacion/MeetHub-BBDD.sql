@@ -4,41 +4,28 @@ CREATE DATABASE IF NOT EXISTS meethub;
 -- Usar la base de datos "meethub"
 USE meethub;
 
--- Borrar las tablas si existen
-DROP TABLE IF EXISTS Invitaciones;
-DROP TABLE IF EXISTS Reuniones;
-DROP TABLE IF EXISTS Usuarios;
+-- Borrar las tablas antes de volver a ejecuatarlas
+drop table if exists Reunion;
+drop table if exists Usuario;
 
--- Tabla Usuarios
-CREATE TABLE Usuarios (
-    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    apellidos VARCHAR(255),
-    correo VARCHAR(255),
-    avatar VARCHAR(255),
-    token_google VARCHAR(255)
+-- Crear la tabla de Usuario s
+CREATE TABLE Usuario (
+    ID_Usuario INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(255) UNIQUE NOT NULL,
+    Contraseña VARCHAR(255) NOT NULL,
+    TokenDeActualizacion VARCHAR(255),
+    Avatar VARCHAR(255)
 );
 
--- Tabla Reuniones
-CREATE TABLE Reuniones (
-    id_reunion INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255),
-    descripcion TEXT,
-    enlace_reunion VARCHAR(255),
-    hora_inicio TIME,
-    hora_fin TIME,
-    fecha DATE,
-    acta TEXT,
-    id_usuario INT,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
+-- Crear la tabla de Reuniones
+CREATE TABLE Reunion (
+    ID_Reunion INT AUTO_INCREMENT PRIMARY KEY,
+    ID_Usuario INT,
+    Titulo VARCHAR(255),
+    Descripcion VARCHAR(255),
+    FechaInicio DATETIME NOT NULL,
+    FechaFin DATETIME NOT NULL,
+    ID_Calendario VARCHAR(255),
+    FOREIGN KEY (ID_Usuario) REFERENCES Usuario(ID_Usuario)
 );
 
--- Tabla Invitaciones
-CREATE TABLE Invitaciones (
-    id_invitacion INT AUTO_INCREMENT PRIMARY KEY,
-    id_usuario INT,
-    id_reunion INT,
-    confirmacion BOOLEAN,
-    FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
-    FOREIGN KEY (id_reunion) REFERENCES Reuniones(id_reunion)
-);
