@@ -1,5 +1,6 @@
 package com.meethub.project.services;
 
+import com.meethub.project.PasswordUtil;
 import com.meethub.project.models.Usuario;
 import com.meethub.project.repositorys.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,9 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
 
+	@Autowired
     private final UsuarioRepository usuarioRepository;
-
+    
     /**
      * Constructor para inyección de dependencias del repositorio de usuarios.
      *
@@ -36,8 +38,18 @@ public class UsuarioService {
      */
     @Transactional
     public Usuario saveUsuario(Usuario usuario) {
+    	String passPLana = usuario.getContrasena();
+    	usuario.setContrasena(PasswordUtil.hashPassword(passPLana));
         return usuarioRepository.save(usuario);
     }
+    
+//    public boolean autenticarUsuario(String email, String contrasenaPlana) {
+//        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+//        if (usuario != null && PasswordUtil.verificarPassword(contrasenaPlana, usuario.getContrasena())) {
+//            return true; // Autenticación exitosa
+//        }
+//        return false; // Autenticación fallida
+//    }
 
     /**
      * Encuentra todos los usuarios disponibles en la base de datos.
@@ -54,8 +66,17 @@ public class UsuarioService {
      * @param id el ID del usuario a buscar
      * @return un objeto Optional que contiene el usuario si es encontrado
      */
-    public Optional<Usuario> findUsuarioById(Long id) {
+    public Optional<Usuario> findUsuarioById(Integer id) {
         return usuarioRepository.findById(id);
+    }
+    
+    /**
+	 * Método de la interfaz que se encarga de buscar un usuario por su email
+	 * @param Email del usuario que queremos encontrar
+	 * @return Estancia de la clase Usuario
+	 */
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
     }
 
     /**
@@ -65,7 +86,7 @@ public class UsuarioService {
      * @throws RuntimeException si el usuario no se encuentra
      */
     @Transactional
-    public void deleteUsuario(Long id) {
+    public void deleteUsuario(Integer id) {
         if (!usuarioRepository.existsById(id)) {
             throw new RuntimeException("Usuario no encontrado con ID: " + id);
         }
@@ -81,9 +102,12 @@ public class UsuarioService {
      */
     @Transactional
     public Usuario updateUsuario(Usuario usuario) {
-        if (usuario.getId() == null || !usuarioRepository.existsById(usuario.getId())) {
+        if (!usuarioRepository.existsById(usuario.getId())) {
             throw new RuntimeException("Intento de actualizar un usuario que no existe con ID: " + usuario.getId());
         }
         return usuarioRepository.save(usuario);
     }
+    
+    
+    
 }

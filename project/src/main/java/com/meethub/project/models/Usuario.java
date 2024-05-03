@@ -13,16 +13,22 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID_Usuario")
-    private Long id;
+    private int id;
 
     @Column(name = "Email", unique = true, nullable = false)
     private String email;
+    
+    @Column(name = "Nombre", nullable = false)
+    private String Nombre;
+    
+    @Column(name = "Apellidos", nullable = false)
+    private String apellidos;
 
-    @Column(name = "Contraseña", nullable = false)
-    private String contraseña; // Considere implementar la encriptación en la lógica de negocio
+    @Column(name = "Contrasena", nullable = true)
+    private String contrasena; // Considere implementar la encriptación en la lógica de negocio
 
-    @Column(name = "TokenDeActualizacion")
-    private String tokenDeActualizacion;
+    @Column(name = "Token")
+    private String Token;
 
     @Column(name = "Avatar")
     private String avatar;
@@ -41,10 +47,10 @@ public class Usuario {
      * @param tokenDeActualizacion el token utilizado para la actualización de la sesión, puede ser nulo.
      * @param avatar la URL del avatar del usuario, puede ser nulo.
      */
-    public Usuario(String email, String contraseña, String tokenDeActualizacion, String avatar) {
+    public Usuario(String email, String contrasena, String Token, String avatar) {
         this.email = email;
-        this.contraseña = contraseña;
-        this.tokenDeActualizacion = tokenDeActualizacion;
+        this.contrasena = contrasena;
+        this.Token = Token;
         this.avatar = avatar;
     }
 
@@ -54,11 +60,11 @@ public class Usuario {
      * Devuelve el ID único del usuario.
      * @return el ID del usuario.
      */
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -73,29 +79,62 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    
+    /**
+     * Devuelve el Nombre del usuario
+     * @return
+     */
+    public String getNombre() {
+		return Nombre;
+	}
 
     /**
+     * Setea el nombre del usuario
+     * @param nombre Nombre del usuario nuevo que queremos ponerle
+     */
+	public void setNombre(String nombre) {
+		Nombre = nombre;
+	}
+
+	/**
+	 * Devuelve los apellidos del usuario
+	 * @return
+	 */
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	/**
+	 * Setea los apellidos del usurio
+	 * @param apellidos Apellidos nuevos que queremos ponerle al usuario
+	 */
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	/**
      * Devuelve la contraseña del usuario.
      * @return la contraseña del usuario.
      */
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contraseña) {
+        this.contrasena = contraseña;
     }
 
     /**
      * Devuelve el token de actualización del usuario, utilizado para la autenticación y renovación de la sesión.
      * @return el token de actualización, puede ser nulo.
      */
-    public String getTokenDeActualizacion() {
-        return tokenDeActualizacion;
+    public String getToken() {
+        return Token;
     }
 
-    public void setTokenDeActualizacion(String tokenDeActualizacion) {
-        this.tokenDeActualizacion = tokenDeActualizacion;
+    public void setToken(String Token) {
+        this.Token = Token;
     }
 
     /**
