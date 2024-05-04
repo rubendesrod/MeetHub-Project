@@ -37,6 +37,7 @@ public class PonerContraController {
 	            // Token de refresco porque los toquen de acceso duran 1 hora
 	            usuario.setToken(refreshToken); 
 	            usuarioService.saveUsuario(usuario);
+	            session.setAttribute("usuario", usuario);
 	        }
 	    }
 	    session.setAttribute("LOGGED", true);

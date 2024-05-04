@@ -33,7 +33,7 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
+                    <img th:src="${usuario.avatar}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </button>
                 <!--Enlaces que se despliegan con el Dropdown-->
                 <ul class="dropdown-menu">
@@ -86,16 +86,15 @@
                         <!--Select que contiene los calendarios que tiene disponibles el usuario y podrá seleccionar cual quiere-->
                         <div class="form-floating">
                             <select class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión" name="selectCalendario">
-                                <option value="0" selected>Default</option>
-                                <option value="1">mi-Calendario1</option>
-                                <option value="2">mi-Calendario2</option>
-                            </select>
-                            <label for="floatingSelect">Calendarios</label>
+							    <th:block th:each="calendario : ${calendarios}">
+							        <option th:value="${calendario.id}" th:selected="${calendario.id == selectedCalendarId}" th:text="${calendario.summary}">Calendario</option>
+							    </th:block>
+							</select>
+							<label for="floatingSelect">Calendarios</label>
                         </div>
                     </div>
                 </div>
                 <div id='calendar'></div>
-                <script src="/JS/calendario.js"></script>
                 <!-- Modal para cuando se haga clic en un día de la semana -->
                 <div class="modal fade" id="dayClickModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -124,5 +123,60 @@
             </section>             
         </div>
     </div>
+    <script th:inline="javascript">
+		  document.addEventListener("DOMContentLoaded", function () {
+			  
+		  var calendarEl = document.getElementById("calendar");
+		  var selectElement = document.getElementById('floatingSelect');
+		  
+		  var calendar = new FullCalendar.Calendar(calendarEl, {
+		    initialView: "dayGridMonth",
+		    locale: "es",
+		    firstDay: 1, // para que el calendario empiece en lunes
+		    headerToolbar: {
+		      left: "prev,next",
+		      center: "title",
+		      right: "dayGridMonth,dayGridWeek,dayGridDay",
+		    },
+		    buttonText: {
+		      today: "Hoy",
+		      month: "Mes",
+		      week: "Semana",
+		      day: "Día",
+		    },
+		    events: function(fetchInfo, successCallback, failureCallback) {
+            // Aquí se llama al servidor para obtener eventos basados en el ID del calendario seleccionado
+            fetch('/calendario/eventos?calendarId=' + selectElement.value)
+                .then(response => response.json())
+                .then(events => successCallback(events))
+                .catch(error => failureCallback(error));
+        	},
+		    // Evento para cuando el ratón pase por enicma de uno de los eventos del calendario
+		    eventMouseEnter: function (info) {
+		      tippy(info.el, {
+		        content: info.event.extendedProps.description,
+		        allowHTML: true,
+		        arrow: true,
+		        theme: "light-border", // Usa un tema predefinido o crea uno personalizado
+		      });
+		    },
+		    // Evento para cuando se haga clic en una día
+		    dateClick: function(info) {
+		      // Llenar el modal con información o hacer cualquier preparación necesaria
+		      document.getElementById('modalLabel').innerHTML = 'Agregar Evento [' + info.dateStr +']';
+		
+		      // Usar Bootstrap para abrir el modal
+		      var modal = new bootstrap.Modal(document.getElementById('dayClickModal'));
+		      modal.show();
+		    }
+		  });
+		  // Escuchar cambios en el select de calendarios
+    		selectElement.addEventListener('change', function() {
+				// Vuelvo a llamar a full calendar
+        		calendar.refetchEvents();
+    		});
+		  calendar.render();
+		});
+	</script>
 </body>
 </html>

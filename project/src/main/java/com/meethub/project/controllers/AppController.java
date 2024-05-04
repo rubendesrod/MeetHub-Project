@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.meethub.project.models.PonerContraDTO;
+import com.meethub.project.models.Usuario;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -27,14 +28,6 @@ public class AppController {
 	@GetMapping("/register")
 	public String mostrarRegsitro(){
 		return "register";
-	}
-	
-	@GetMapping("/calendario")
-	public String mostrarCalendario(HttpSession  session) {
-	    if (comprobacionAutenticacion(session)) {
-	        return "calendario";
-	    }
-	    return "redirect:/";
 	}
 	
 	@GetMapping("/perfil")
