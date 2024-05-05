@@ -49,6 +49,16 @@
     }
 }
 
+/*Estilo para el dia de ahora*/
+.fc-dat .fc-day-today {
+    background-color: #ffcccc !important;
+    color: #333333 !important;
+    border: 1px solid #ff0000 !important;
+    box-shadow: 0 0 5px #ff0000 !important; 
+}
+
+
+
 /* Colores de lunes a viernes */
 .fc-day:not(.fc-day-sat):not(.fc-day-sun) {
     background-color: #a3d5f7;

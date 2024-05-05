@@ -14,15 +14,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.DateTime;
+import com.google.api.services.calendar.model.Calendar;
 import com.google.api.services.calendar.model.CalendarList;
 import com.google.api.services.calendar.model.CalendarListEntry;
 import com.google.api.services.calendar.model.Event;
+import com.google.api.services.calendar.model.EventDateTime;
 import com.google.api.services.calendar.model.Events;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.AccessToken;
@@ -38,6 +41,8 @@ public class CalendarioController {
 
 	@Autowired
 	private GoogleUserService googleService;
+	
+	
 	
 	/**
 	 * Método que se encarga de recoger la llamada a la vista del calendario y le pasa como modelo el usuario,
@@ -67,11 +72,15 @@ public class CalendarioController {
 	        GoogleCredentials credentials = GoogleCredentials.create(new AccessToken(accessToken, null))
 	        	    .createScoped(Arrays.asList("https://www.googleapis.com/auth/calendar"));
 
-	        List<CalendarListEntry> calendarios;
+	        List<CalendarListEntry> calendariosDecodificados;
         	try {
-        	    calendarios = getCalendarios(credentials);
-        	    if (!calendarios.isEmpty()) {
-        	        String PrimerID = calendarios.get(0).getId();
+        		calendariosDecodificados = getCalendarios(credentials);
+        	    if (!calendariosDecodificados.isEmpty()) {
+        	    	
+        	    	// Ahora codifico los ID de los calendarios
+        	    	List<CalendarListEntry> calendariosCodificados = codificarIdsDeCalendarios(calendariosDecodificados);
+        	    	
+        	        String PrimerID = calendariosDecodificados.get(0).getId();
         	        
         	        // Hago una comprobaciónd de que el usuario haya entrado 
         	        // ya a la pagina para que salga su última calendario seleccionado
@@ -80,12 +89,12 @@ public class CalendarioController {
         	        	session.setAttribute("IDCalendario", PrimerID);
         	        }
         	        
-        	        model.addAttribute("calendarios", calendarios);
+        	        model.addAttribute("calendarios", calendariosCodificados);
 
         	        return "calendario";
         	    } else {
         	        model.addAttribute("message", "No calendars available");
-        	        return "calendario";
+        	        return "redirect:/calendario";
         	    }
         	} catch (Exception e) {
         	    e.printStackTrace();
@@ -95,6 +104,8 @@ public class CalendarioController {
 	    }
 	    return "redirect:/";
 	}
+	
+	
 	
 	/**
 	 * Método que se encarga de responder la llamada del event de full calendar y devolver los Evento en JSON
@@ -110,7 +121,7 @@ public class CalendarioController {
 		if (calendarId == null || calendarId.isEmpty()) {
 			IDCalendario = (String) sesion.getAttribute("IDCalendario");
 	    }else {
-	    	IDCalendario = calendarId;
+	    	IDCalendario = decodificarIdDeCalendario(calendarId);
 	    	sesion.setAttribute("IDCalendario", IDCalendario);
 	    }
 		
@@ -163,22 +174,95 @@ public class CalendarioController {
         
     }
 	
+	
+	
+	/**
+	 * Método que recoge el envío del formulario que se realiza en un modal a la hora enviar un evento
+	 * @param nombre nombre del evento
+	 * @param descripcion descripcion del evento
+	 * @param fecha dia en el que se quiere crear el evento
+	 * @param sesion session que se guarda en la cabecera HTTP
+	 * @return Un redireccionamiento al calendario para que cargue ese evento recien creado
+	 */
+	@PostMapping("/calendario/crear/evento")
+	public String crearEvento(@RequestParam("eventName") String nombre,
+            				@RequestParam("eventDescrip") String descripcion,
+            				@RequestParam("eventDate") String fecha,
+            				HttpSession sesion) 
+	{
+		
+		String accessToken = (String) sesion.getAttribute("accessToken");
+		 
+	    GoogleCredentials credentials = GoogleCredentials.create(new AccessToken(accessToken, null))
+	        	    .createScoped(Arrays.asList("https://www.googleapis.com/auth/calendar"));  
+	    
+	    HttpCredentialsAdapter credentialsAdapter = new HttpCredentialsAdapter(credentials);
+
+        // Añade el evento al calendario 'primary'
+        String calendarId = (String)sesion.getAttribute("IDCalendario");  // Puede ser cualquier ID de calendario que tengas acceso
+        try {
+        	 // Instancia del Calendario de google
+    	    com.google.api.services.calendar.Calendar service = new com.google.api.services.calendar.Calendar.Builder(new NetHttpTransport(), new GsonFactory(), credentialsAdapter)
+    	            .setApplicationName("MeetHub")
+    	            .build();
+    	    
+    	    String des;
+    	    // Compruebo que los datos no estén vacíos
+    	    if(descripcion == null || descripcion.isEmpty()) {
+    	    	des = "Sin descripcion";
+    	    }else {
+    	    	des = descripcion;
+    	    }
+    	    
+    	    // creo el evento
+    	    Event event = new Event()
+                    .setSummary(nombre)
+                    .setDescription(des);
+    	    
+    	    // Sumo un dia a la fecha actual porque un evento dura todo el dia
+    	    // Convertir la fecha de inicio y sumar un día para la fecha de fin
+    	    java.util.Calendar calendar = new java.util.GregorianCalendar();
+    	    
+    	    // Ahora seteo la fecha del usuario que ha seleccionado en el calendario
+            EventDateTime start = new EventDateTime()
+                    .setDate(new com.google.api.client.util.DateTime(fecha));
+            event.setStart(start);
+
+            EventDateTime end = new EventDateTime()
+                    .setDate(new com.google.api.client.util.DateTime(fecha));
+            event.setEnd(end);
+
+    	    
+    	    // Ejecuto la inserccion del evento en la id del calendario que esta seleccionado
+			event = service.events().insert(calendarId, event).execute();
+			
+			
+			return "redirect:/calendario";
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	
+	
+	
 	/**
 	 * Método que se encarga de codificar los ID's de los calendarios para que luego no haya problemas al pasarles por la URL
 	 * @param calendarios Lista de las ids de los calendarios
 	 * @return List de las ID's codificadas
 	 */
-	public List<String> codificarIdsDeCalendarios(List<String> idCalendarios) {
-		List<String> calendariosCodificados = new ArrayList<>();
-	    for (String id : idCalendarios) {
+	public List<CalendarListEntry> codificarIdsDeCalendarios(List<CalendarListEntry> calendarios) {
+	    for (CalendarListEntry cal : calendarios) {
 	        try {
-	            String codificado = URLEncoder.encode(id, "UTF-8");
-	            calendariosCodificados.add(codificado);
+	            String codificado = URLEncoder.encode(cal.getId(), "UTF-8");
+	            cal.setId(codificado);
 	        } catch (UnsupportedEncodingException e) {
 	            throw new RuntimeException("Error al codificar ID de calendario", e);
 	        }
 	    }
-	    return calendariosCodificados;
+	    return calendarios;
 	}
 	
 	
@@ -196,6 +280,7 @@ public class CalendarioController {
 	    }
 	}
 
+	
 	
 	/**
 	 * Método para convertir lo eventos de la API en EventosDTO y que full calendar lo entienda
@@ -220,16 +305,24 @@ public class CalendarioController {
 	                dto.setEnd(new Date(evento.getEnd().getDate().getValue()));
 	            }
 	            dto.setDescription(evento.getDescription());
+	            // Compruebo que hay enlace a google meet
+	            if (evento.getHangoutLink() != null) {
+	                dto.setUrl(evento.getHangoutLink());
+	            }else {
+	                dto.setUrl(null);
+	            }
 	            eventosDTO.add(dto);
 	        }
 	    }
 	    return eventosDTO;
 	}
 	
+	
+	
 	/**
 	 * Método para coger todos los Calendarios y sacar sus ID's por lo menos del primer calendario
 	 * @param GoogleCredentials credenciales de google la cual se cogen con accesToken para poder realizar la llamada HTTP
-	 * 
+	 * @returnn Lista de calendarios
 	 */
 	public List<CalendarListEntry> getCalendarios(GoogleCredentials credentials) throws IOException {
 	    HttpCredentialsAdapter credentialsAdapter = new HttpCredentialsAdapter(credentials);
@@ -242,6 +335,8 @@ public class CalendarioController {
 	    return calendarList.getItems();
 	}
 
+	
+	
 	/**
 	 * Método que recibe la session HTTP y busca si el usuarios se ha autorizado previamente
 	 * @param session Session que guarda el navegador cuando hace respuestas HTTP
@@ -254,6 +349,8 @@ public class CalendarioController {
 	    }
 	    return true;
 	}
+	
+	
 	
 	/**
 	 * Método que se encarga de gestionar los tokens de acceso y de actualización para poder realizar las llamadas

@@ -33,7 +33,7 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img th:src="${usuario.avatar}" style="border-radius: 50%;" alt="Avatar de Perfil">
+                    <img th:src="${usuario.avatar != null and usuario.avatar != '' ? usuario.avatar : 'https://ui-avatars.com/api/?name=' + usuario.nombre + '+' + usuario.apellidos}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </button>
                 <!--Enlaces que se despliegan con el Dropdown-->
                 <ul class="dropdown-menu">
@@ -99,24 +99,48 @@
                 <div class="modal fade" id="dayClickModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-                            <!--Header del modal-->
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modalLabel">Agregar un evento</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <label for="meetingName" class="form-label">Nombre</label>
-                                    <input type="text" class="form-control" id="eventName">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="meetingName" class="form-label">Descripcion</label>
-                                    <input type="text" class="form-control" id="eventDescrip">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary">Agregar Evento</button>
-                            </div>
+                            <form method="post" th:action="@{/calendario/crear/evento}">
+							    <!--Header del modal-->
+							    <div class="modal-header">
+							        <h5 class="modal-title" id="modalLabel">Agregar un evento [2024-12-4]</h5>
+							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							    </div>
+							    <div class="modal-body">
+							        <div class="mb-3">
+							            <label for="eventName" class="form-label">Nombre</label>
+							            <input type="text" class="form-control" id="eventName" name="eventName">
+							        </div>
+							        <div class="mb-3">
+							            <label for="eventDescrip" class="form-label">Descripcion <span style="color: #80849E;">( * opcional )</span></label>
+							            <input type="text" class="form-control" id="eventDescrip" name="eventDescrip">
+							        </div>
+							    </div>
+							     <!-- Campo oculto para la fecha -->
+        						<input type="hidden" id="eventDate" name="eventDate">
+							    <div class="modal-footer">
+							        <button type="submit" disabled class="btn btn-primary">Agregar Evento</button>
+							    </div>
+							    <!--Script para realizar la validación de nombre-->
+							    <script>
+									document.addEventListener('DOMContentLoaded', function() {
+									    var eventNameInput = document.getElementById('eventName');
+									    var addButton = document.querySelector('.btn-primary');
+									
+									    // Función para verificar la longitud del texto
+									    eventNameInput.addEventListener('input', function() {
+									        if (eventNameInput.value.length > 6) {
+									            addButton.disabled = false;  // Habilita el botón
+									            eventNameInput.classList.add('is-valid');  // Añade la clase is-valid
+									            eventNameInput.classList.remove('is-invalid');  // Asegúrate de quitar is-invalid si estaba antes
+									        } else {
+									            addButton.disabled = true;  // Deshabilita el botón si no se cumple la condición
+									            eventNameInput.classList.remove('is-valid');
+									            eventNameInput.classList.add('is-invalid');  // Añade la clase is-invalid si es necesario
+									        }
+									    });
+									});
+								</script>
+							</form>
                         </div>
                     </div>
                 </div>
@@ -124,15 +148,22 @@
         </div>
     </div>
     <script th:inline="javascript">
-		  document.addEventListener("DOMContentLoaded", function () {
+		document.addEventListener("DOMContentLoaded", function () {
 			  
 		  var calendarEl = document.getElementById("calendar");
 		  var selectElement = document.getElementById('floatingSelect');
 		  
 		  var calendar = new FullCalendar.Calendar(calendarEl, {
+			nowIndicator: true,
 		    initialView: "dayGridMonth",
+		    /*views: {
+			    timeGrid: {
+			      dayMaxEventRows: 20
+			     }
+		    },*/
 		    locale: "es",
 		    firstDay: 1, // para que el calendario empiece en lunes
+		   // dayMaxEvents: true, 
 		    headerToolbar: {
 		      left: "prev,next",
 		      center: "title",
@@ -144,13 +175,39 @@
 		      week: "Semana",
 		      day: "Día",
 		    },
+		    eventColor: '#a671f5',
+		    showNonCurrentDates: false,
 		    events: function(fetchInfo, successCallback, failureCallback) {
             // Aquí se llama al servidor para obtener eventos basados en el ID del calendario seleccionado
             fetch('/calendario/eventos?calendarId=' + selectElement.value)
                 .then(response => response.json())
-                .then(events => successCallback(events))
+                .then(events => {
+			            // Compruebo cada evento para asegurarme de que no lleva una url no válida
+			            const processedEvents = events.map(event => {
+			                if (!event.url) {
+			                    delete event.url;
+			                }
+			                if(event.end === event.start){
+								delete event.end;
+								event.allDay = true;
+							}
+			                return event;
+			            });
+            			successCallback(processedEvents);
+				 })
                 .catch(error => failureCallback(error));
         	},
+        	// Evento para cuando se hace click en reuniones te lleve a la url
+        	eventClick: function(info) {
+			    // Previene el comportamiento por defecto y detiene la propagación siempre, independientemente de si hay una URL
+			    info.jsEvent.preventDefault();
+			    info.jsEvent.stopPropagation();
+			
+			    // Luego, comprueba si la URL existe y es válida antes de intentar abrir la ventana
+			    if (info.event.url) {
+			        window.open(info.event.url);
+			    }
+			},
 		    // Evento para cuando el ratón pase por enicma de uno de los eventos del calendario
 		    eventMouseEnter: function (info) {
 		      tippy(info.el, {
@@ -164,17 +221,19 @@
 		    dateClick: function(info) {
 		      // Llenar el modal con información o hacer cualquier preparación necesaria
 		      document.getElementById('modalLabel').innerHTML = 'Agregar Evento [' + info.dateStr +']';
-		
+				
+			  // LLeno el input de apoyo para enviar la fehca que ha seleccionado el usuario
+			  document.getElementById('eventDate').value = info.dateStr;
 		      // Usar Bootstrap para abrir el modal
 		      var modal = new bootstrap.Modal(document.getElementById('dayClickModal'));
 		      modal.show();
-		    }
+		    },
 		  });
 		  // Escuchar cambios en el select de calendarios
-    		selectElement.addEventListener('change', function() {
-				// Vuelvo a llamar a full calendar
-        		calendar.refetchEvents();
-    		});
+    	  selectElement.addEventListener('change', function() {
+			 // Vuelvo a llamar a full calendar
+        	 calendar.refetchEvents();
+    	  });
 		  calendar.render();
 		});
 	</script>
