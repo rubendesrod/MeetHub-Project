@@ -1,13 +1,18 @@
 package com.meethub.project.controllers;
 
 import java.util.Enumeration;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.meethub.project.models.PonerContraDTO;
 import com.meethub.project.models.Usuario;
+import com.meethub.project.services.GoogleUserService;
+import com.meethub.project.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -18,10 +23,19 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AppController {
 
+	@Autowired
+    private GoogleUserService googleUserService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
 	@GetMapping("/")
-	public String login(HttpSession  session) {
+	public String login(@RequestParam(value = "usuario_existe", required = false) String usuarioExiste, HttpSession  session, Model model) {
 		// Método para destruir el atributo de session de LOGGED
 		limpiarAtributosDeSession(session);
+		if ("true".equals(usuarioExiste)) {
+	        model.addAttribute("UsuarioExiste", "Un usuario con ese correo electrónico ya existe.");
+	    }
 		return "login";
 	}
 	
@@ -55,10 +69,30 @@ public class AppController {
 	}	
 	
 	@GetMapping("/ponerContrasena")
-	public String ponerContrasena(Model model) {
-		// Meto un modelo de PonerContraDTO para que el formulario envie los datos a través de un objeto en java
-		model.addAttribute("PonerContraDTO", new PonerContraDTO());
-		return "ponerContrasena";
+	public String ponerContrasena(Model model, HttpSession session) {
+		String accesToken = (String) session.getAttribute("accessToken");
+		
+		Usuario usuario = googleUserService.obtenerDetallesUsuario(accesToken);
+		
+		// Compruebo antes de mandar a poner la contraseña si ya estaba logeado un usuario con ese correo
+		if(!usuarioYaExiste(usuario.getEmail())) {
+			// DTO que utilizo en el formulario para recoger los datos
+			model.addAttribute("PonerContraDTO", new PonerContraDTO());
+			return "ponerContrasena";
+		}else {
+			return "redirect:/?usuario_existe=true";
+		}
+	}
+	
+	/**
+	 * Método que se enarcaga de comprobar si el usuario ya existe en la base de datos con ese correo
+	 * @return Tue, si no existe el usuario o False, si que existe el usuarios
+	 */
+	public boolean usuarioYaExiste(String email) {
+		// Busca el usuario por correo electrónico
+	    Optional<Usuario> usuario = usuarioService.findByEmail(email);
+	    // Devuelve true si el usuario existe, false de lo contrario
+	    return usuario.isPresent();
 	}
 	
 	/**

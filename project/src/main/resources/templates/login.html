@@ -24,6 +24,7 @@
                 <h1 class="text-center">MeetHub</h1>
             </div>
             <div class="formulario-login">
+            <div th:if="${UsuarioExiste}" th:text="${UsuarioExiste}" class="alert alert-warning"></div>
                 <p>Bienvenido a nuestra web!</p>
                 <form method="post" th:action="@{/login/iniciar}">
                     <div class="inputs">
@@ -42,6 +43,7 @@
                     </div>
                 </form>
                 <div th:if="${error}" th:text="${error}" class="alert alert-danger"></div>
+                
             </div> 
           <p id="CopyRight">MeetHub&copy;Deploymeent-2024</p>
         </div>

@@ -1,5 +1,7 @@
 package com.meethub.project.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,15 +35,19 @@ public class PonerContraController {
 	    if (refreshToken != null) {
 	        Usuario usuario = googleUserService.obtenerDetallesUsuario(accesToken);
 	        if (usuario != null) {
-	            usuario.setContrasena(password);
+	        	// Comprobacion de que el usuario no exista ya en la DB
+        		usuario.setContrasena(password);
 	            // Token de refresco porque los toquen de acceso duran 1 hora
 	            usuario.setToken(refreshToken); 
 	            usuarioService.saveUsuario(usuario);
 	            session.setAttribute("usuario", usuario);
+	            session.setAttribute("LOGGED", true);
+	    	    return "redirect:/calendario";
 	        }
-	    }
-	    session.setAttribute("LOGGED", true);
-	    return "redirect:/calendario";
+	     }   
+	    return "redirect:/register";
 	}
+	
+	
 	
 }
