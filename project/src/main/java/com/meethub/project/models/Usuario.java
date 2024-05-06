@@ -1,5 +1,7 @@
 package com.meethub.project.models;
 
+import com.meethub.project.Sexo;
+
 import jakarta.persistence.*;
 
 /**
@@ -25,8 +27,15 @@ public class Usuario {
     private String apellidos;
 
     @Column(name = "Contrasena", nullable = true)
-    private String contrasena; // Considere implementar la encriptación en la lógica de negocio
+    private String contrasena;
 
+    @Column(name = "FechaNacimiento", nullable = true)
+    private String FechaNacimiento;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "Sexo", nullable = true)
+    private Sexo sexo;
+    
     @Column(name = "Token")
     private String Token;
 
@@ -64,6 +73,10 @@ public class Usuario {
         return id;
     }
 
+    /**
+     * Método set del ID
+     * @param id
+     */
     public void setId(int id) {
         this.id = id;
     }
@@ -76,6 +89,10 @@ public class Usuario {
         return email;
     }
 
+    /**
+     * Metodo set para el email
+     * @param email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
@@ -121,6 +138,10 @@ public class Usuario {
         return contrasena;
     }
 
+    /**
+     * Metodo set para la contraseña
+     * @param contraseña
+     */
     public void setContrasena(String contraseña) {
         this.contrasena = contraseña;
     }
@@ -133,6 +154,10 @@ public class Usuario {
         return Token;
     }
 
+    /**
+     * Metodo set para el token
+     * @param Token
+     */
     public void setToken(String Token) {
         this.Token = Token;
     }
@@ -145,7 +170,48 @@ public class Usuario {
         return avatar;
     }
 
+    /**
+     * Metodo set para el avatar
+     * @param avatar
+     */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
     }
+
+    /**
+     * Meotodo que devuelve la fehca de nacimiento
+     * @return La fecha de nacimiento
+     */
+	public String getFechaNacimiento() {
+		return FechaNacimiento;
+	}
+
+	/**
+	 * Metodo para setear una nueva fecha de nacimiento
+	 * @param fechaNacimiento
+	 */
+	public void setFechaNacimiento(String fechaNacimiento) {
+		FechaNacimiento = fechaNacimiento;
+	}
+
+	
+	/**
+	 * Metodo que devuelve el sexo del usuario
+	 * @return Enum de sexo (Hombre, Mujer)
+	 */
+	public Sexo getSexo() {
+		return sexo;
+	}
+
+	/**
+	 * Metodo que setea el sexo del usuario
+	 * @param sexo
+	 */
+	public void setSexo(Sexo sexo) {
+		this.sexo = sexo;
+	}
+	
+	
+    
+    
 }

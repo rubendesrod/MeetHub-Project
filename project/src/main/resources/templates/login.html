@@ -24,7 +24,8 @@
                 <h1 class="text-center">MeetHub</h1>
             </div>
             <div class="formulario-login">
-            <div th:if="${UsuarioExiste}" th:text="${UsuarioExiste}" class="alert alert-warning"></div>
+	            <div th:if="${UsuarioExiste}" th:text="${UsuarioExiste}" class="alert alert-warning"></div>
+	            <div th:if="${borrado}" th:text="${borrado}" class="alert alert-success"></div>
                 <p>Bienvenido a nuestra web!</p>
                 <form method="post" th:action="@{/login/iniciar}">
                     <div class="inputs">

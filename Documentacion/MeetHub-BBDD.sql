@@ -15,6 +15,8 @@ CREATE TABLE Usuario (
     Nombre VARCHAR(255) NOT NULL,
     Apellidos VARCHAR(255),
     Contrasena VARCHAR(255) NOT NULL,
+    FechaNacimiento VARCHAR(255),
+    sexo ENUM('Hombre','Mujer'),
     Token VARCHAR(255),
     Avatar VARCHAR(255)
 );

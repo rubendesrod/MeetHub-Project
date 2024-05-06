@@ -44,14 +44,6 @@ public class AppController {
 		return "register";
 	}
 	
-	@GetMapping("/perfil")
-	public String mostrarPerfil(HttpSession  session) {
-		if (comprobacionAutenticacion(session)) {
-			return "perfil";
-	    }
-		 return "redirect:/";
-	}
-	
 	@GetMapping("/crearReunion")
 	public String mostrarCrearReunion(HttpSession  session) {
 		if (comprobacionAutenticacion(session)) {

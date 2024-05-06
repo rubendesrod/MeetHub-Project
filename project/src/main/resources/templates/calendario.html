@@ -129,13 +129,13 @@
 									    // Función para verificar la longitud del texto
 									    eventNameInput.addEventListener('input', function() {
 									        if (eventNameInput.value.length > 6) {
-									            addButton.disabled = false;  // Habilita el botón
-									            eventNameInput.classList.add('is-valid');  // Añade la clase is-valid
-									            eventNameInput.classList.remove('is-invalid');  // Asegúrate de quitar is-invalid si estaba antes
+									            addButton.disabled = false;  
+									            eventNameInput.classList.add('is-valid');  
+									            eventNameInput.classList.remove('is-invalid');  
 									        } else {
-									            addButton.disabled = true;  // Deshabilita el botón si no se cumple la condición
+									            addButton.disabled = true; 
 									            eventNameInput.classList.remove('is-valid');
-									            eventNameInput.classList.add('is-invalid');  // Añade la clase is-invalid si es necesario
+									            eventNameInput.classList.add('is-invalid'); 
 									        }
 									    });
 									});

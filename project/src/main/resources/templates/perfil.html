@@ -23,7 +23,7 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
+                   <img th:src="${usuario.avatar != null and usuario.avatar != '' ? usuario.avatar : 'https://ui-avatars.com/api/?name=' + usuario.nombre + '+' + usuario.apellidos}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </button>
                 <ul class="dropdown-menu">
                   <li class="d-xl-none"><a class="dropdown-item" href="/crearReunion">Crear reunión</a></li>
@@ -74,28 +74,38 @@
             <!--Primer Section-->
             <section class="shadow px-5 rounded-5 contenedorTitle bg-white w-100">
                 <div class="avatar">
-                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
+                   <img th:src="${usuario.avatar != null and usuario.avatar != '' ? usuario.avatar : 'https://ui-avatars.com/api/?name=' + usuario.nombre + '+' + usuario.apellidos}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </div>
                 <div class="title">
-                    <h2 id="nombre">Rubén Descalzo Rodríguez</h2>
+                    <h2 id="nombre" th:text="${usuario.nombre + ' ' + usuario.apellidos}"></h2>
                     <p>Usuario de google</p>
                 </div>
             </section>
             <!--Segundo Section-->
             <section id="contenedorInformacion" class="w-100 shadow px-5 rounded-4 contenedorInformacion my-5 bg-white" >
+				<!--ALERT PARA LA ACTUALIZACION DE INFORMACION CON ÉXITO-->
+				<div th:if="${Correcto}" class="alert alert-success alert-dismissible fade show" role="alert">
+				    <strong>¡Éxito!</strong> [[${Correcto}]]
+				    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				<!--ALERT PARA ALGUN FALLO EN LA ACTUALIZACION DE INFORMACION-->
+				<div th:if="${ERROR}" class="alert alert-danger alert-dismissible fade show" role="alert">
+				    <strong>¡Error!</strong> [[${ERROR}]]
+				    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
                 <h1>Informacion Básica</h1>
-                <form action="" name="datosPersonales">
+                <form method="post" th:action="@{/perfil/actualizarInformacion}" name="datosPersonales" th:object="${usuario}">
                     <!--Primera fila del formulario Información básica-->
                     <div class="row gap-5 fila">
                         <div class="col-md-5 d-flex flex-column col-sm-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputNombre" name="nombrePersona" placeholder="Nombre">  
+                                <input th:field="*{nombre}" type="text" class="form-control" id="inputNombre" name="nombrePersona" placeholder="Nombre">  
                                 <label for="floatingInputGrid">Nombre</label>
                             </div>
                         </div>
                         <div class="col-md-5 d-flex flex-column col-sm-12">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="inputApellidos" name="apellidoPersona" placeholder="Apellidos">
+                                <input th:field="*{apellidos}" type="text" class="form-control" id="inputApellidos" name="apellidoPersona" placeholder="Apellidos">
                                 <label for="floatingInputGrid">Apellidos</label>
                             </div>
                         </div>
@@ -104,10 +114,10 @@
                     <div class="row fila">
                         <div class="col-md-4 d-flex flex-column align-self-end col-sm-12">
                             <div class="form-floating">
-                                <select class="form-select" id="sexoPersona" aria-label="Floating label select example">
-                                    <option value="0">Abre el menú</option>
-                                    <option value="hombre">Hombre</option>
-                                    <option value="mujer">Mujer</option>
+                                <select th:field="*{sexo}" class="form-select" id="sexoPersona" aria-label="Floating label select example">
+                                    <option value="Null">Abre el menú</option>
+                                    <option value="Hombre" th:selected="${usuario.sexo == 'HOMBRE'}">Hombre</option>
+        							<option value="Mujer" th:selected="${usuario.sexo == 'MUJER'}">Mujer</option>
                                 </select>
                                 <label for="floatingSelectGrid">Sexo</label>
                             </div>
@@ -118,24 +128,39 @@
                             <div class="row">
                                 <div class="col-md-2 d-flex flex-column col-sm-3">
                                     <div class="form-floating">
-                                        <select class="form-select" name="diaPersona" id="dia" aria-label="Floating label select example">
-                                            <option value="0"></option>
+                                        <select th:field="*{diaNacimiento}" class="form-select" name="diaPersona" id="dia" aria-label="Floating label select example">
+                                             <option value="0"></option>
+                                             <th:block th:each="dia : ${#numbers.sequence(1, 31)}"> 
+										         <option th:value="${dia}" th:text="${dia}"
+										                th:selected="${usuario.diaNacimiento == dia}">
+										         </option>
+										     </th:block>
                                         </select>
                                         <label for="floatingSelectGrid">Dia</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4 d-flex flex-column col-sm-5">
                                     <div class="form-floating">
-                                        <select class="form-select" name="mesPersona" id="mes" aria-label="Floating label select example">
+                                        <select th:field="*{mesNacimiento}" class="form-select" name="mesPersona" id="mes" aria-label="Floating label select example">
                                             <option value="0"></option>
+                                            <th:block th:each="mes : ${#numbers.sequence(1, 12)}">
+										        <option th:value="${mes}" th:text="${mes}"
+										                th:selected="${usuario.mesNacimiento == mes}">
+										        </option>
+										    </th:block>
                                         </select>
                                         <label for="floatingSelectGrid">Mes</label>
                                     </div>
                                 </div>
                                 <div class="col-md-4 d-flex flex-column col-sm-4">
                                     <div class="form-floating">
-                                        <select class="form-select" name="anyoPersona" id="anyo" aria-label="Floating label select example">
-                                            <option value="0"></option>
+                                        <select th:field="*{anioNacimiento}" class="form-select" name="anyoPersona" id="anyo" aria-label="Floating label select example">
+                                           <option value="0"></option>
+                                           <th:block th:each="anio : ${#numbers.sequence(1900, #dates.year(#dates.createNow()))}">
+										        <option th:value="${anio}" th:text="${anio}"
+										                th:selected="${usuario.anioNacimiento == anio}">
+										        </option>
+										    </th:block>
                                         </select>
                                         <label for="floatingSelectGrid">Año</label>
                                     </div>
@@ -147,40 +172,44 @@
                     <div class="row gap-5 gap-sm-3 fila">
                         <div class="col-md-5 d-flex flex-column col-sm-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="correoPersona" placeholder="Email">  
+                                <input type="email" class="form-control" id="correoPersona" placeholder="Email" th:value="${usuario.email}" readonly>  
                                 <label for="floatingInputGrid">Email</label>
                             </div>
-                        </div>
-                        <div class="col-md-6 align-self-end d-flex flex-column align-items-end">
-                            <div class="input-group">
-                                <label class="input-group-text" for="inputGroupFile01">Avatar</label>
-                                <input type="file" class="form-control" id="inputGroupFile01">
-                              </div>
                         </div>
                     </div>
                      <!--Tercera fila del formulario Información básica-->
                      <div class="row gap-5 gap-sm-3 fila">
                         <div class="col align-self-end d-flex flex-column align-items-center">
-                            <button type="button" id="btnActualizar" class="btn btn-outline-success">ACTUALIZAR INFORMACION</button>
+                            <button type="submit" id="btnActualizar" class="btn btn-outline-success">ACTUALIZAR INFORMACION</button>
                         </div>
                     </div>
                 </form>
             </section>
             <!--Tercer Section-->
             <section id="contenedorCambiarPass" class="w-100 shadow px-5 rounded-4 contenedorCambiarPass my-5 bg-white">
+				<!--ALERT PARA EL CAMBIO DE CONTRASEÑA CORRECTO-->
+				<div th:if="${cambioCorrecto}" class="alert alert-success alert-dismissible fade show" role="alert">
+				    <strong>¡Éxito!</strong> [[${cambioCorrecto}]]
+				    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+				<!--ALERT PARA ALGUN TIPO DE ERROR AL CAMBIAR LA CONTRASEÑA-->
+				<div th:if="${cambioError}" class="alert alert-danger alert-dismissible fade show" role="alert">
+				    <strong>¡Error!</strong> [[${cambioError}]]
+				    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
                 <h1>Cambiar Contraseña</h1>
-                <form action="#" method="post">
+                <form th:action="@{/perfil/cambiarPass}" method="post">
                     <div class="d-flex flex-column align-items-center inputsContrasena">
                         <div class="form-floating my-3">
-                            <input type="password" class="form-control" id="passActual" placeholder="Password">
+                            <input type="password" class="form-control" id="passActual" placeholder="Password" name="actual">
                             <label for="floatingPassword">Contraseña actual</label>
                           </div>
                           <div class="form-floating  my-3">
-                            <input type="text" class="form-control" id="passNueva" placeholder="Password">
+                            <input type="text" class="form-control" id="passNueva" placeholder="Password" name="nuevaPass">
                             <label for="floatingPassword">Nueva contraseña</label>
                           </div>
                           <div class="form-floating  my-3">
-                            <input type="password" class="form-control" id="passRepetida" placeholder="Password">
+                            <input type="password" class="form-control" id="passRepetida" placeholder="Password" name="nuevaPassRep">
                             <label for="floatingPassword">Repite la nueva contraseña</label>
                           </div>
                     </div>
@@ -196,10 +225,9 @@
                             </ul>
                         </div>
                         <div class="col-sm-7 align-self-end d-flex flex-column align-items-sm-end align-items-center">
-                            <button type="button" id="btnActualizarPass" class="btn btn-outline-success">CAMBIAR CONTRASEÑA</button>
+                            <button type="submit" id="btnActualizarPass" class="btn btn-outline-success">CAMBIAR CONTRASEÑA</button>
                         </div>
                     </div>
-                    
                 </form>
             </section>
              <!--Cuarto Section-->
@@ -207,7 +235,7 @@
                 <h2>Borrar Cuenta</h2>
                 <div class="row my-4">
                     <div class="col-sm-5">
-                        <p>Una vez que eliminas tu cuenta, no hay vuelta atrás.<br>
+                        <p>Una vez que eliminas tu cuenta, tendrás que registrar de nuevo.<br>
                             Por favor esté seguro de que quieres hacerlo</p>
                     </div>
                     <div class="col-7  d-flex flex-column align-items-end">
@@ -216,18 +244,20 @@
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Borrar Cuenta</h5>
-                            </div>
-                            <div class="modal-body">
-                                <p>Si estás seguro de borrar la cuenta pulsa en el Botón <b>ACEPTAR</b></p>
-                            </div>
-                            <div class="modal-footer">
-                            <button id="btnCerrar" type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
-                            <button id="btnAceptar" type="button" class="btn btn-success">ACEPTAR</button>
-                            </div>
-                        </div>
+	                        <div class="modal-content">
+	                            <div class="modal-header">
+	                                <h5 class="modal-title" id="exampleModalLabel">Borrar Cuenta</h5>
+	                            </div>
+	                            <div class="modal-body">
+	                                <p>Si estás seguro de borrar la cuenta pulsa en el Botón <b>ACEPTAR</b></p>
+	                            </div>
+	                            <div class="modal-footer">
+									<form method="post" th:action="@{/perfil/borrarCuenta}">
+			                            <button id="btnCerrar" type="button" class="btn btn-danger" data-dismiss="modal">CERRAR</button>
+			                            <button id="btnAceptar" type="submit" class="btn btn-success">ACEPTAR</button>
+									</form>
+	                            </div>
+	                        </div>
                         </div>
                     </div>
                     <!--Script para la apertura y cierra de modal-->
@@ -246,6 +276,6 @@
         </div>
     </div>
     <!--Script para cargar los select-->
-    <script src="/JS/cargaSelect.js"></script>
+    <!--<script src="/JS/cargaSelect.js"></script>-->
 </body>
 </html>

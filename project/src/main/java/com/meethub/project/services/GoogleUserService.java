@@ -43,6 +43,12 @@ public class GoogleUserService {
             }
            
             try {
+                usuario.setFechaNacimiento(jsonObject.get("birthdate").getAsString());
+            } catch (Exception e) {
+                usuario.setFechaNacimiento(null);
+            }
+            
+            try {
             	usuario.setAvatar(jsonObject.get("picture").getAsString());            	
             }catch(Exception e) {
             	usuario.setAvatar("");
