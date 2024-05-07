@@ -1,45 +1,62 @@
 // Evento para cuando se hace clic en el boton añadir
 document.getElementById('botonAnadirIntegrante').addEventListener('click', function() {
-    var email = document.getElementById('emailInput').value; // Obtener el correo del input
-    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para validar el formato del email
+    var emailInput = document.getElementById('emailInput');
+    var email = emailInput.value;
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var errorEmailVacio = document.getElementById('errorEmailVacio');
+    var errorEmailFormato = document.getElementById('errorEmailFormato');
+    var errorEmailRepetido = document.getElementById('errorEmailRepetido');
+    var listaEmail = document.getElementById('listaEmail'); // Input donde se añadirán los emails separados por comas
 
-    if(email) { // Verificar que el correo no esté vacío
-        if(emailPattern.test(email)){ // Verificar que el formato del correo es válido
-            errorEmailVacio.style.display = 'none';
-            errorEmailFormato.style.display = 'none';
-            emailInput.classList.remove('is-invalid'); // quito la clase en rojo del input
-            emailInput.classList.add('is-valid') // añado una clase en verde al input
-            // se crea un elemto li para el UL
-            var listItem = document.createElement('li');
-            listItem.className = 'list-group-item';
+    if(email) {
+        if(emailPattern.test(email)) {
+            var exists = Array.from(document.querySelectorAll('#integrantesList .email-text'))
+                              .some(span => span.textContent.trim() === email.trim());
 
-            var deleteBtn = document.createElement('span');
-            deleteBtn.textContent = '×'; // Usar el símbolo de "X"
-            deleteBtn.className = 'delete-btn';
-            deleteBtn.onclick = function() {
-                this.parentElement.remove();
-            };
-            // email
-            var emailText = document.createElement('span');
-            emailText.textContent = email;
-            emailText.style.marginLeft = '10px'; // Añadir algo de espacio entre la "X" y el correo
+            if(!exists) {
+                resetErrors();
+                emailInput.classList.add('is-valid');
 
-            listItem.appendChild(deleteBtn); // Añadir primero el botón de eliminar
-            listItem.appendChild(emailText); // Luego añadir el texto del correo
-            document.getElementById('integrantesList').appendChild(listItem); // Añadir el correo a la lista
+                var listItem = document.createElement('li');
+                listItem.className = 'list-group-item';
 
-            emailInput.value = ''; // Limpiar el input
-        }else{
-            errorEmailVacio.style.display = 'none';
-            emailInput.classList.add('is-invalid'); // añado la clase is-invalid al input
-            errorEmailFormato.style.display = 'block'; // Hago el display del mensaje de textp
+                var emailText = document.createElement('span');
+                emailText.textContent = email;
+                emailText.className = 'email-text';
+                emailText.style.marginLeft = '10px';
+                
+                var deleteBtn = document.createElement('span');
+                deleteBtn.textContent = '×';
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.style.cursor = 'pointer';
+                deleteBtn.onclick = function() {
+                    this.parentElement.remove();
+                    updateEmailList(); // Llamar a la función cada vez que se elimina un correo
+                };
+
+                listItem.appendChild(deleteBtn);
+                listItem.appendChild(emailText);
+                document.getElementById('integrantesList').appendChild(listItem);
+
+                emailInput.value = ''; // Limpiar el input después de añadir
+                updateEmailList(); // Actualizar la lista de correos cada vez que se añade un nuevo correo
+            } else {
+                displayError(errorEmailRepetido, 'El email ya ha sido añadido a la lista.');
+            }
+        } else {
+            displayError(errorEmailFormato, 'Formato de email no válido.');
         }
     } else {
-        errorEmailFormato.style.display = 'none';
-        emailInput.classList.add('is-invalid'); // añado la clase is-invalid al input
-        errorEmailVacio.style.display = 'block'; // Hago el display del mensaje de textp
-     }
+        displayError(errorEmailVacio, 'El campo de email no puede estar vacío.');
+    }
 });
+
+function updateEmailList() {
+    var allEmails = Array.from(document.querySelectorAll('#integrantesList .email-text'))
+                         .map(span => span.textContent.trim());
+    document.getElementById('listaEmail').value = allEmails.join(',');
+}
+
 
 // Evento para cuando se hace clic en el boton de reset
 document.getElementById('btnResetar').addEventListener('click', function () {
@@ -59,3 +76,20 @@ document.getElementById('btnResetar').addEventListener('click', function () {
     var listaIntegrantes = document.getElementById('integrantesList');
     listaIntegrantes.innerHTML = ''; // Establecer el contenido del ul a una cadena vacía para eliminar todos los li
 })
+
+// Funcion para quitar todos mensajes de error
+function resetErrors() {
+    var errors = document.querySelectorAll('.error-message');
+    errors.forEach(function(error) {
+        error.style.display = 'none';
+    });
+    emailInput.classList.remove('is-invalid', 'is-valid');
+}
+
+// Funcion para desplegar el mensaje y el div de error que quiero mostrar
+function displayError(element, message) {
+    resetErrors();
+    emailInput.classList.add('is-invalid');
+    element.textContent = message;
+    element.style.display = 'block';
+}

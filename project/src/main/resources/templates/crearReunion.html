@@ -23,7 +23,7 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
+                    <img th:src="${usuario.avatar != null and usuario.avatar != '' ? usuario.avatar : 'https://ui-avatars.com/api/?name=' + usuario.nombre + '+' + usuario.apellidos}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </button>
                 <!--Enlaces que se despliegan con el Dropdown-->
                 <ul class="dropdown-menu">
@@ -68,33 +68,59 @@
                     <h1 id="nombre">Crear Reunión</h1>
             </section>
             <!--Segundo section que contiene los datos de la primera reunión-->
-            <section class="w-100 shadow px-5 rounded-5 seccionCrear bg-white my-4"> 
+            <section class="w-100 shadow px-5 rounded-5 seccionCrear bg-white my-4">
                     <!--Formulario que envía los datos de creación de reunión / Evento-->
-                    <form action="" method="post">
+                    <form th:action="@{/crearReunion/crear}" method="post" th:object="${reunion}">
                         <!--Primer fieldset el cual guarda los datos de la reunión-->
                         <fieldset class="datosReunion py-5">
                             <legend>Datos de la Reunión</legend>
                             <p class="intrucciones">(*) - Datos que son opcionales</p>
+                            <!--ALERT PARA LA ACTUALIZACION DE INFORMACION CON ÉXITO-->
+							<div th:if="${ReunionCreada}" class="alert alert-success alert-dismissible fade show" role="alert">
+							    <strong>¡Éxito!</strong> [[${ReunionCreada}]]
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							<!--TODOS LOS ALERTS POR LOS QUE PUEDE HABER UN ERROR EN LA CREACION DE REUNION-->
+							<div th:if="${Error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+							    <strong>ERROR VideoConferencia</strong> <span th:text="${Error}"></span>
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							<div th:if="${errorFecha != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+							    <strong>Error en la fecha!</strong> <span th:text="${errorFecha}"></span>
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							<div th:if="${errorHora != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+							    <strong>Error en la hora!</strong> <span th:text="${errorHora}"></span>
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							<div th:if="${errorNombre != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+							    <strong>Error en el nombre!</strong> <span th:text="${errorNombre}"></span>
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
+							<div th:if="${errorParticipantes != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+							    <strong>Error en los participantes!</strong> <span th:text="${errorParticipantes}"></span>
+							    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+							</div>
                             <div class="row my-sm-3 py-4">
                                 <div class="col-sm-3 col-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="nombreReunion" name="nombreReunion" placeholder="nombre" required>
+                                        <input type="text" class="form-control" id="nombreReunion" th:field="*{nombre}" name="nombreReunion" placeholder="nombre" required>
                                         <label for="nombreReunion">Nombre</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-6">
                                     <div class="form-floating">
-                                        <select class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión">
-                                            <option value="0" selected>Online</option>
-                                            <option value="1">Presencial</option>
+                                        <select th:field="*{modo}" name="modoReunion" class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión">
+                                            <option value="Online" selected>Online</option>
+                                            <option value="Presencial">Presencial</option>
                                         </select>
                                         <label for="floatingSelect">Modo (*)</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-12 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="descripcionReunion" name="descripcionReunion" placeholder="nombre" required>
-                                        <label for="descripcionReunion">Motivo/Descripción (*)</label>
+                                        <input th:field="*{descripcion}" type="text" class="form-control" id="descripcionReunion" name="descripcionReunion" placeholder="nombre">
+                                        <label for="descr-ipcionReunion">Motivo/Descripción (*)</label>
                                     </div>
                                     
                                 </div>
@@ -102,19 +128,19 @@
                             <div class="row my-sm-3 d-flex justify-content-center">
                                 <div class="col-sm-3 col-10">
                                     <div class="form-floating">
-                                        <input type="date" class="form-control" id="floatingDia" name="floatingDia" placeholder="Dia" required>
+                                        <input th:field="*{dateReunion}" type="date" class="form-control" id="floatingDia" name="floatingDia" placeholder="Dia" required>
                                         <label for="floatingDia">Dia</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-5 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input type="time" class="form-control" id="floatingHoraE" name="floatingHoraE" placeholder="HoraEmpiece" required>
+                                        <input th:field="*{start}" type="time" class="form-control" id="floatingHoraE" name="floatingHoraE" placeholder="HoraEmpiece" required>
                                         <label for="floatingHoraE">Desde las</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-5 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input type="time" class="form-control" id="floatingHoraF" name="floatingHoraF" placeholder="HoraFinal" required>
+                                        <input  th:field="*{end}" type="time" class="form-control" id="floatingHoraF" name="floatingHoraF" placeholder="HoraFinal" required>
                                         <label for="floatingHoraF">Hasta las</label>
                                     </div>
                                 </div>
@@ -131,6 +157,7 @@
                                     </div>
                                     <div class="error-message" id="errorEmailVacio" style="display: none;">El email no puede estar vacío.</div>
                                     <div class="error-message" id="errorEmailFormato" style="display: none;">No es un formato de email válido.</div>
+                                    <div class="error-message" id="errorEmailRepetido" style="display: none;">Este email ya está añadido.</div>
                                 </div>
                             </div>
                             <div class="row d-flex flex-row justify-content-center py-2">
@@ -141,22 +168,22 @@
                                     <ul class="list-group" id="integrantesList"></ul>
                                 </div>
                             </div>
+                            <!--Input que mandara a los invitados en un mismo String-->
+                            <input th:field="*{invitados}" type="hidden" id="listaEmail" name="participantes">
                             <div class="row d-flex flex-row justify-content-center mb-4 align-items-center gap-5">
                                 <div class="col-2 justify-content-center d-flex">
                                     <button id="btnResetar" type="button" class="btn btn-danger" data-dismiss="modal">RESETEAR</button>
                                 </div>
                                 <div class="col-2 justify-content-center d-flex">
-                                    <button id="btnCrear" type="button" class="btn btn-success">CREAR</button>
+                                    <button id="btnCrear" type="submit" class="btn btn-success">CREAR</button>
                                 </div>
                             </div>
                         </fieldset>
-                        <!--Script para añadir que se añadan los integrantes al textarea-->
-                        <script src="/JS/crearReunion.js"></script>
-
                     </form>
             </section>
-                
         </div>
     </div>
+    <!--Script para añadir que se añadan los integrantes al textarea-->
+    <script src="/JS/crearReunion.js"></script>
 </body>
 </html>

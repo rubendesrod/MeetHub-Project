@@ -44,14 +44,6 @@ public class AppController {
 		return "register";
 	}
 	
-	@GetMapping("/crearReunion")
-	public String mostrarCrearReunion(HttpSession  session) {
-		if (comprobacionAutenticacion(session)) {
-			return "crearReunion";
-	    }
-		 return "redirect:/";
-	}
-	
 	@GetMapping("/misReuniones")
 	public String mostrarMisReuniones(HttpSession  session) {
 		if (comprobacionAutenticacion(session)) {
