@@ -73,8 +73,8 @@ public class OAuth2Controller {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("client_id", "System.getenv("GOOGLE_CLIENT_ID")"); // Tu ID de cliente de Google
-        map.add("client_secret", "System.getenv("GOOGLE_CLIENT_SECRET")"); // Tu secreto de cliente de Google
+        map.add("client_id", System.getenv("GOOGLE_CLIENT_ID")); // ID de cliente de Google
+        map.add("client_secret", System.getenv("GOOGLE_CLIENT_SECRET")); // secreto de cliente de Google
         map.add("code", code); // El código de autorización obtenido de Google
         map.add("redirect_uri", "http://localhost:9000/oauth2/callback/google"); // La URI de redirección configurada en Google
         map.add("grant_type", "authorization_code"); // Indica que estamos utilizando el código de autorización para obtener el token
