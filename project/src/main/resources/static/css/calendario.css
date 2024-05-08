@@ -49,12 +49,10 @@
     }
 }
 
-/*Estilo para el dia de ahora*/
-.fc-dat .fc-day-today {
-    background-color: #ffcccc !important;
-    color: #333333 !important;
-    border: 1px solid #ff0000 !important;
-    box-shadow: 0 0 5px #ff0000 !important; 
+/*Estilos para el día actual*/
+.fc .fc-day-today .fc-daygrid-day-frame {
+    background-color: #b2fab4 !important;
+    color: black !important;
 }
 
 
@@ -115,6 +113,20 @@
     background-color: #218838; /* Verde oscuro */
     border-color: #218838;
 }
+
+/*Estilos para el boton de hoy*/
+.fc .fc-today-button {
+    background-color: #28a745 !important; /* Color verde, igual que los botones de navegación */
+    border-color: #28a745 !important;
+    padding: 1px !important;
+}
+
+/* Estilos para el hover del botón "Hoy" */
+.fc .fc-today-button:hover {
+    background-color: #218838 !important; /* Verde oscuro para el hover */
+    border-color: #218838 !important;
+}
+
 
 
 /*-------------------MEDIA QUERYS----------------------*/
