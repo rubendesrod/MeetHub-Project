@@ -1,28 +1,33 @@
-// Funcion para cuando el documento haya cargado correctamente
 $(document).ready(function() {
-    // Evento para el boton de editar de cada fila para cuando se haga clic en el 
-  $('.editBtn').click(function() {
-    // Saco el elemento padre
-    var row = $(this).closest('tr');
-    var id = $(this).data('id'); // ID de la fila
-    var name = row.find('td:nth-child(2)').text();
-    var description = row.find('td:nth-child(3)').text();
-    var dateTime = row.find('td:nth-child(4)').text().split('-'); // Dividir la fecha y la hora
-    var date = convertDateFormat(dateTime[0]); // Fecha
-    var time = dateTime[1]; // Hora
-    var link = row.find('td:nth-child(5) a').attr('href');
-    // Setear los valores en el modal
-    $('#meetingName').val(name);
-    $('#meetingDesc').val(description);
-    $('#meetingDate').val(date);
-    $('#meetingTime').val(time);
-    $('#meetingLink').val(link);
-  });
+    $('.editBtn').click(function() {
+        var row = $(this).closest('tr');
+        var id = row.find('.reunionId').val();  // Extraer el ID desde el input oculto
+        var invitados = row.find('.invitados').val();
+        var name = row.find('td:nth-child(2)').text();
+        var description = row.find('td:nth-child(3)').text();
+        var dateTime = row.find('td:nth-child(4)').text().split('-');
+
+        var date = convertDateFormat(dateTime[0].trim());
+        var startTime = dateTime.length > 1 ? dateTime[1].trim() : '';
+        var endTime = dateTime.length > 2 ? dateTime[2].trim() : '';
+        var link = row.find('td:nth-child(5) a').attr('href');
+
+        // Asignar los valores en el modal
+        $('#meetingId').val(id);
+        $('#meetingInvitados').val(invitados);
+        $('#meetingName').val(name);
+        $('#meetingDesc').val(description);
+        $('#meetingDate').val(date);
+        $('#meetingStart').val(startTime);
+        $('#meetingEnd').val(endTime);
+        $('#meetingLink').val(link);
+        
+        // Mostrar el modal
+        $('#editModal').modal('show');
+    });
 });
 
-// Funcion para convertir la fecha en formato YYYY-MM-DD
 function convertDateFormat(dateStr) {
-    var parts = dateStr.split('/'); // Divide la fecha basándose en "/"
-    // Devuelvo el string con el formato que necesito para la input date
-    return parts[2] + '-' + parts[1] + '-' + parts[0]; 
+    var parts = dateStr.split('/');
+    return parts[2] + '-' + parts[1] + '-' + parts[0];
 }

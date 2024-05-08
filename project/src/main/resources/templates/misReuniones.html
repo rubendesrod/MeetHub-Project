@@ -11,10 +11,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--Script del poppermin.js para el dropdowm-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <style>
-        .switch.ios, .switch-on.ios, .switch-off.ios { border-radius: 20rem; }
-        .switch.ios .switch-handle { border-radius: 20rem; }
-    </style>
 </head>
 <body>
     <!-- 1 Fila -->
@@ -27,7 +23,7 @@
         <div class="col-6 d-flex align-items-center flex-row col-sm-8 col-xl-9">
             <div class="dropdown">
                 <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="/img/Avatar.png" alt="Avatar de Perfil">
+                    <img th:src="${usuario.avatar != null and usuario.avatar != '' ? usuario.avatar : 'https://ui-avatars.com/api/?name=' + usuario.nombre + '+' + usuario.apellidos}" style="border-radius: 50%;" alt="Avatar de Perfil">
                 </button>
                 <!--Enlaces que se despliegan con el Dropdown-->
                 <ul class="dropdown-menu">
@@ -73,55 +69,55 @@
             </section>
             <!--Segundo section que contiene los datos de las reuniones creadas por el usuario-->
             <section class="w-100 shadow px-5 rounded-5 seccionEditar bg-white my-4 p-4 pt-5"> 
-                    <!--Formulario que envía los datos de creación de reunión / Evento-->
-                    <form action="" method="post">
-                        <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Fecha y hora</th>
-                                <th scope="col">Enlace</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                              <tr name="1">
-                                <th scope="row">1</th>
-                                <td>Reunion1</td>
-                                <td>ver como hacer...</td>
-                                <td>23/04/2024-22:30</td>
-                                <td><a target="_blank" href="https://meet.google.com/pkb-ecoy-hob?pli=1&authuser=5">Pulsa aquí</a></td>
-                                <td><button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal" data-bs-target="#editModal" data-id="1">Editar</button></td>
-                            </tr>
-                              </tr>
-                              <tr name="2">
-                                <th scope="row">2</th>
-                                <td>Reunion2</td>
-                                <td>ver como mover...</td>
-                                <td>26/04/2024-13:00</td>
-                                <td><a target="_blank" href="https://meet.google.com/pkb-ecoy-hob?pli=1&authuser=5">Pulsa aquí</a></td>
-                                <td><button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal" data-bs-target="#editModal" data-id="2">Editar</button></td>
-                              </tr>
-                
-                            </tbody>
-                          </table>
-                          <nav aria-label="Page navigation example" class="mt-5">
-                            <ul class="pagination">
-                              <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                  <span aria-hidden="true">&laquo;</span>
-                                </a>
-                              </li>
-                              <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                  <span aria-hidden="true">&raquo;</span>
-                                </a>
-                              </li>
-                            </ul>
-                          </nav>
-                    </form>
+					<!--ALERT PARA LA ACTUALIZACION DE INFORMACION CON ÉXITO-->
+					<div th:if="${mensaje}" class="alert alert-success alert-dismissible fade show" role="alert">
+					    <strong>¡Éxito!</strong> [[${mensaje}]]
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<!--TODOS LOS ALERTS POR LOS QUE PUEDE HABER UN ERROR EN LA MODIFICACION DE LA REUNIÓN-->
+					<div th:if="${error != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					    <strong>ERROR</strong> <span th:text="${Error}"></span>
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div th:if="${errorFecha != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					    <strong>Error en la fecha!</strong> <span th:text="${errorFecha}"></span>
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div th:if="${errorHora != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					    <strong>Error en la hora!</strong> <span th:text="${errorHora}"></span>
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div th:if="${errorNombre != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					    <strong>Error en el nombre!</strong> <span th:text="${errorNombre}"></span>
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+					<div th:if="${errorParticipantes != null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+					    <strong>Error en los participantes!</strong> <span th:text="${errorParticipantes}"></span>
+					    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+                    <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Fecha y hora</th>
+                            <th scope="col">Enlace</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr th:each="reunion, iteracion : ${reuniones}" th:name="${iteracion.count}">
+						    <th scope="row" th:text="${iteracion.count}"></th>
+						    <td th:text="${reunion.nombre}"></td>
+						    <td th:text="${#strings.length(reunion.descripcion) > 50 ? #strings.substring(reunion.descripcion, 0, 50) + '...' : reunion.descripcion}"></td>
+						    <td th:text="${reunion.dateReunion + '-' + reunion.start + '-' + reunion.end}"></td>
+						    <td><a th:href="${reunion.urlMeet}" th:text="${reunion.urlMeet != null ? 'Pulsa aquí' : 'No disponible'}" target="_blank"></a></td>
+						    <td><button type="button" class="btn btn-primary editBtn" data-bs-toggle="modal" data-bs-target="#editModal" th:data-id="${reunion.id}">Editar</button></td>
+							<td><input type="hidden" th:value="${reunion.id}" class="reunionId"/></td>
+						    <td><input type="hidden" th:value="${reunion.invitados}" class="invitados"/></td>
+						</tr>
+                        </tbody>
+                      </table>
                     <!-- Modal -->
                     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -130,30 +126,38 @@
                             <h5 class="modal-title" id="editModalLabel">Editar Datos</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <form>
+                            <form th:action="@{/misReuniones/actualizar}" method="post" th:object="${reunion}">
+							<input type="hidden" class="form-control" id="meetingId" name="id"/>
+							<input type="hidden" class="form-control" id="meetingInvitados" name="invitados"/>
                             <div class="modal-body">
                                 <div class="mb-3">
                                   <label for="meetingName" class="form-label">Nombre de la Reunión</label>
-                                  <input type="text" class="form-control" id="meetingName">
+                                  <input name="nombre" type="text" class="form-control" id="meetingName">
                                 </div>
                                 <div class="mb-3">
                                   <label for="meetingDesc" class="form-label">Descripción</label>
-                                  <input type="text" class="form-control" id="meetingDesc">
+                                  <input name="descripcion" type="text" class="form-control" id="meetingDesc">
                                 </div>
                                 <div class="mb-3">
                                     <label class="mb-2">Fecha y Hora</label>
                                     <div class="row">
                                         <div class="col">
-                                        <input type="date" class="form-control" id="meetingDate">
+	                                        <input name="dateReunion" type="date" class="form-control" id="meetingDate">
+	                                    </div>
                                     </div>
-                                    <div class="col">
-                                        <input type="time" class="form-control" id="meetingTime">
-                                    </div>
-                                    </div>
+                                    <div class="row my-3">
+										 <div class="col">
+	                                        <input name="start" type="time" class="form-control" id="meetingStart">
+	                                    </div>
+	                                    hasta
+	                                    <div class="col">
+	                                        <input name="end" type="time" class="form-control" id="meetingEnd">
+	                                    </div>
+									</div>
                                 </div>
                                 <div class="mb-3">
                                   <label for="meetingLink" class="form-label">Enlace</label>
-                                  <input type="url" class="form-control" id="meetingLink" readonly>
+                                  <input name="urlmeet" type="url" class="form-control" id="meetingLink" readonly>
                                 </div>
                             </div>
                             <div class="modal-footer">

@@ -117,7 +117,7 @@ public class CrearReunionController {
 	        model.addAttribute("errorParticipantes", "Debe haber al menos un participante.");
 	    }
 
-	    // Asumiendo que todas las validaciones están correctas
+	    // Compruebo que todas las validaciones están correctas
 	    if (!model.containsAttribute("errorNombre") && !model.containsAttribute("errorFecha") &&
 	        !model.containsAttribute("errorHora") && !model.containsAttribute("errorParticipantes")) {
 
@@ -145,10 +145,17 @@ public class CrearReunionController {
 	            .setAttendees(attendees)
 	            .setConferenceData(conferenceData);
 
-	        String dateTimeStart = reu.getDateReunion() + "T" + reu.getStart() + ":00";
-	        String dateTimeEnd = reu.getDateReunion() + "T" + reu.getEnd() + ":00";
-	        event.setStart(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(dateTimeStart)));
-	        event.setEnd(new EventDateTime().setDateTime(new com.google.api.client.util.DateTime(dateTimeEnd)));
+	        String timeZoneOffset = "+02:00";  // Ajusta este valor basado en si España está en CET (UTC+1) o CEST (UTC+2)
+			String dateTimeStart = reu.getDateReunion() + "T" + reu.getStart() + ":00" + timeZoneOffset;
+			String dateTimeEnd = reu.getDateReunion() + "T" + reu.getEnd() + ":00" + timeZoneOffset;
+
+			// Crear los objetos DateTime de Google
+			com.google.api.client.util.DateTime startDateTime = new com.google.api.client.util.DateTime(dateTimeStart);
+			com.google.api.client.util.DateTime endDateTime = new com.google.api.client.util.DateTime(dateTimeEnd);
+
+			// Configurar en el evento
+			event.setStart(new EventDateTime().setDateTime(startDateTime).setTimeZone("Europe/Madrid"));
+			event.setEnd(new EventDateTime().setDateTime(endDateTime).setTimeZone("Europe/Madrid"));
 
 	        // Llamar a la API de Google Calendar para insertar el evento
 	        try {
@@ -158,7 +165,7 @@ public class CrearReunionController {
 	                .build();
 
 	            event = service.events().insert((String)sesion.getAttribute("IDCalendario"), event)  // Usar "primary" o el ID del calendario específico
-	                    .setConferenceDataVersion(0)
+	                    .setConferenceDataVersion(1)
 	                    .execute();
 	            
 	            if (event.getConferenceData() != null && event.getConferenceData().getEntryPoints() != null) {
@@ -175,8 +182,6 @@ public class CrearReunionController {
 	            } else {
 	                model.addAttribute("Error", "No se encontraron datos de conferencia.");
 	            }
-	            
-	            model.addAttribute("Correcto", "La Reunión ha sido creada con éxito" + event.getHangoutLink());
 	        } catch (Exception e) {
 	            model.addAttribute("error", "Error al crear el evento en Google Calendar: " + e.getMessage());
 	            return "crearReunion";

@@ -9,6 +9,8 @@ import com.meethub.project.ModoReunion;
  */
 public class ReunionDTO {
 
+	private String id;
+	
 	/**
 	 * Nombre de la reunion
 	 */
@@ -45,23 +47,31 @@ public class ReunionDTO {
 	private String invitados;
 
 	/**
+	 * String de la url de la reunion al meet
+	 */
+	private String urlMeet;
+	
+	/**
 	 * Constructo de la clase vacio
 	 */
 	public ReunionDTO() {}
 	
 	/**
 	 * Constructor de la clase con todos los parametros
-	 * @param nombre
-	 * @param modo
-	 * @param descripcion
-	 * @param dateReunion
-	 * @param start
-	 * @param end
-	 * @param invitados
+	 * @param id Id de la reunion
+	 * @param nombre Nombre de la reunion
+	 * @param modo Enum de Presencial / Online para la reunion
+	 * @param descripcion Descripcion de la reunion
+	 * @param dateReunion Fecha de la reunion
+	 * @param start Hora de empiece de la reunion
+	 * @param end Hora de finalizacion de la reunion
+	 * @param invitados Correos de los usuarios que queremos invitar a la reunion, separados por ','
+	 * @param urlMeet Enlace a la reunión del meet de google
 	 */
-	public ReunionDTO(String nombre, ModoReunion modo, String descripcion, String dateReunion, String start, String end,
-			String invitados) {
+	public ReunionDTO(String id,String nombre, ModoReunion modo, String descripcion, String dateReunion, String start, String end,
+			String invitados, String urlMeet) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
 		this.modo = modo;
 		this.descripcion = descripcion;
@@ -69,6 +79,7 @@ public class ReunionDTO {
 		this.start = start;
 		this.end = end;
 		this.invitados = invitados;
+		this.urlMeet = urlMeet;
 	}
 
 	/**
@@ -167,6 +178,34 @@ public class ReunionDTO {
 	 */
 	public void setInvitados(String invitados) {
 		this.invitados = invitados;
+	}
+
+	/**
+	 * @return El urlMeet
+	 */
+	public String getUrlMeet() {
+		return urlMeet;
+	}
+
+	/**
+	 * @param urlMeet El urlMeet que queremos setear
+	 */
+	public void setUrlMeet(String urlMeet) {
+		this.urlMeet = urlMeet;
+	}
+
+	/**
+	 * @return El id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id El id nuevo que queremos setear
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	

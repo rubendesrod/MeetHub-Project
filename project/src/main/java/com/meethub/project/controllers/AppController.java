@@ -44,14 +44,6 @@ public class AppController {
 		return "register";
 	}
 	
-	@GetMapping("/misReuniones")
-	public String mostrarMisReuniones(HttpSession  session) {
-		if (comprobacionAutenticacion(session)) {
-	        return "misReuniones";
-	    }
-		  return "redirect:/";
-	}	
-	
 	@GetMapping("/ponerContrasena")
 	public String ponerContrasena(Model model, HttpSession session) {
 		String accesToken = (String) session.getAttribute("accessToken");

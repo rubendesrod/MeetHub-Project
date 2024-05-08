@@ -24,8 +24,6 @@ public class LoginController {
 	@Autowired
 	private UsuarioService usuService;
 	
-	private PasswordUtil pwdUtil;
-	
 	@Autowired
 	private GoogleUserService googleService;
 	
@@ -66,7 +64,7 @@ public class LoginController {
 	 * @return Boolean True, si las pass coinciden o False, si no coinciden las pass
 	 */
 	private boolean validarCredenciales(String password, Usuario usuario) {
-	    return pwdUtil.verificarPassword(password, usuario.getContrasena());
+	    return PasswordUtil.verificarPassword(password, usuario.getContrasena());
 	}
 
 	/**
