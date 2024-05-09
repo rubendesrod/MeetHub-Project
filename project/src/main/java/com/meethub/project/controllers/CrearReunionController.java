@@ -34,14 +34,27 @@ import com.meethub.project.services.GoogleUserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que se encarga de controlar las llamadas a la vista de Crear Reunion
+ */
 @Controller
 public class CrearReunionController {
 
+	/**
+	 * Instancia al objeto de GoogleUserService para poder realizar la comprobacion del token de acceso
+	 */
 	@Autowired
 	private GoogleUserService googleService;
 	
 	
-	
+	/**
+	 * Metodo que responde a la ruta /crearReunion y se encaga de mostrar la vista
+	 * @param session Sesion que guarda el navegador en las rutas HTTP
+	 * @param model Modelo de la vista al que se le setan atributos con datos para utilizarlos en ella
+	 * @return
+	 */
 	@GetMapping("/crearReunion")
 	public String mostrarCrearReunion(HttpSession  session, Model model) {
 		if (comprobacionAutenticacion(session)) {
@@ -59,7 +72,13 @@ public class CrearReunionController {
 	}
 	
 	
-	
+	/**
+	 * Metodo que responde cuando se hace un POST de un formulario con la ruta /crearReunion/crear para crear una reunión
+	 * @param session Sesion que guarda el navegador en las rutas HTTP
+	 * @param model Modelo de la vista al que se le setan atributos con datos para utilizarlos en ella
+	 * @param reu Objeto ReunionDTO el cual contiene los datos de esta para mandarle a la API de Google los datos
+	 * @return Nombre de la vista a la que quiere redirigir
+	 */
 	@PostMapping("/crearReunion/crear")
 	private String crearReunion(HttpSession sesion,
 								Model model,

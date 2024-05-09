@@ -17,16 +17,37 @@ import com.mysql.cj.Session;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que responde a las llamadas de la ruta /login
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
 
+	/**
+	 * Instancia del objeto UsuarioService para realizar consultas a la base de datos
+	 */
 	@Autowired
 	private UsuarioService usuService;
 	
+	/**
+	 * Instancia del objeto GoogleUserService para poder comprobar los tokens de acceso
+	 */
 	@Autowired
 	private GoogleUserService googleService;
 	
+	
+	
+	/**
+	 * Metodo que se activa al realizar una accion POST desde un formulario con la ruta /inciar
+	 * @param sesion Sesion que guarda el navegador en las respuesta HTTP
+	 * @param email Email del usuario que quiere acceder
+	 * @param password Contraseña del usuario
+	 * @param redirectAttributes Objeto que permite añadir atributos y que se mantenga en la siguiente vista
+	 * @return
+	 */
 	@PostMapping("/iniciar")
 	public String iniciarLogin(HttpSession sesion, @RequestParam("email") String email, @RequestParam("password") String password 
 								,RedirectAttributes redirectAttributes) 
@@ -56,6 +77,7 @@ public class LoginController {
 		    return "redirect:/";
 		}
 	}
+	
 	
 	/**
 	 * Método que se encarga de validar que las los contraseñas son iguales

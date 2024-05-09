@@ -2,6 +2,12 @@ package com.meethub.project;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que usa metodos estaticos para encriptar contraseñas y comprobar una contraseña en texto plano con la hasheada
+ */
 public class PasswordUtil {
 
     /**

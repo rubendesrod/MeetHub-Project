@@ -18,17 +18,35 @@ import jakarta.servlet.http.HttpSession;
 
 
 /**
+ * @author Ruben
+ * @version 1.0
  * Controlador para manejar las solicitudes de redirigir a otra pagina
  */
 @Controller
 public class AppController {
 
+	
+	/**
+	 * Instancion del Objeto GoogleUserService para poder realizar la comprobación del token de acceso
+	 */
 	@Autowired
     private GoogleUserService googleUserService;
 	
+	
+	/**
+	 * Instancia del objeto UsuarioService para poder realizar llamadas a la base de datos
+	 */
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	
+	/**
+	 * Metodo principal el cual responderá devolviendo la vista a la pagina principal de la aplicacion
+	 * @param usuarioExiste Parametro que recoger de la respuesta HTTP, el cual es por si un usuario se ha registrado ya previamente
+	 * @param session Sesion que guarda el navegador web en las respuestas HTTP
+	 * @param model Modelo de la vista para añadir atributos y que la vista pueda usarles
+	 * @return Nombre del vista a la que redirige
+	 */
 	@GetMapping("/")
 	public String login(@RequestParam(value = "usuario_existe", required = false) String usuarioExiste, HttpSession  session, Model model) {
 		// Método para destruir el atributo de session de LOGGED
@@ -39,11 +57,24 @@ public class AppController {
 		return "login";
 	}
 	
+	
+	/**
+	 * Metodo que responde a la ruta /register y redirige a este
+	 * @return Nombre de la vista a la que redirige
+	 */
 	@GetMapping("/register")
 	public String mostrarRegsitro(){
 		return "register";
 	}
 	
+	
+	
+	/**
+	 * Meotod que responde a un GET y se encarga de mandar al usuario a la Vista ponerContrasena
+	 * @param model Modelo la vista al cual se le pueden setear atributos y que la vista los utilice
+	 * @param session Sesion que guarda el navegador web en las respuestas HTTP
+	 * @return
+	 */
 	@GetMapping("/ponerContrasena")
 	public String ponerContrasena(Model model, HttpSession session) {
 		String accesToken = (String) session.getAttribute("accessToken");
@@ -60,6 +91,8 @@ public class AppController {
 		}
 	}
 	
+	
+	
 	/**
 	 * Método que se enarcaga de comprobar si el usuario ya existe en la base de datos con ese correo
 	 * @return Tue, si no existe el usuario o False, si que existe el usuarios
@@ -70,6 +103,8 @@ public class AppController {
 	    // Devuelve true si el usuario existe, false de lo contrario
 	    return usuario.isPresent();
 	}
+	
+	
 	
 	/**
 	 * Método que recibe la session HTTP y busca si el usuarios se ha autorizado previamente
@@ -83,6 +118,8 @@ public class AppController {
 	    }
 	    return true;
 	}
+	
+	
 	
 	/**
 	 * Metodo para limpiar los atributos que tenga la sesion guardados ya que el usuario acaba de entrar a la pagina principal

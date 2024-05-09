@@ -3,6 +3,7 @@ package com.meethub.project.services;
 import com.meethub.project.PasswordUtil;
 import com.meethub.project.models.Usuario;
 import com.meethub.project.repositorys.UsuarioRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +12,19 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Servicio para manejar las operaciones relacionadas con usuarios.
- * Proporciona métodos para gestionar la creación, eliminación, actualización y consulta de usuarios.
+ * Servicio para manejar las operaciones relacionadas con usuarios en la aplicación MeetHub.
+ * Proporciona métodos para gestionar la creación, eliminación, actualización y consulta de usuarios,
+ * así como autenticación de los mismos.
+ *
+ * @author Ruben
+ * @version 1.0
  */
 @Service
 public class UsuarioService {
 
-	@Autowired
+    @Autowired
     private final UsuarioRepository usuarioRepository;
-    
+
     /**
      * Constructor para inyección de dependencias del repositorio de usuarios.
      *
@@ -31,25 +36,29 @@ public class UsuarioService {
     }
 
     /**
-     * Guarda un usuario en la base de datos.
+     * Guarda un usuario en la base de datos. La contraseña se almacena en forma cifrada.
      *
      * @param usuario el usuario a guardar
      * @return el usuario guardado
      */
     @Transactional
     public Usuario saveUsuario(Usuario usuario) {
-    	String passPLana = usuario.getContrasena();
-    	usuario.setContrasena(PasswordUtil.hashPassword(passPLana));
+        String passPlana = usuario.getContrasena();
+        usuario.setContrasena(PasswordUtil.hashPassword(passPlana));
         return usuarioRepository.save(usuario);
     }
-    
-//    public boolean autenticarUsuario(String email, String contrasenaPlana) {
-//        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
-//        if (usuario != null && PasswordUtil.verificarPassword(contrasenaPlana, usuario.getContrasena())) {
-//            return true; // Autenticación exitosa
-//        }
-//        return false; // Autenticación fallida
-//    }
+
+    /**
+     * Autentica un usuario comparando la contraseña proporcionada con la almacenada en la base de datos.
+     *
+     * @param email El correo electrónico del usuario a autenticar.
+     * @param contrasenaPlana La contraseña en texto plano para verificar.
+     * @return true si la autenticación es exitosa; false de lo contrario.
+     */
+    public boolean autenticarUsuario(String email, String contrasenaPlana) {
+        Optional<Usuario> usuario = usuarioRepository.findByEmail(email);
+        return usuario.isPresent() && PasswordUtil.verificarPassword(contrasenaPlana, usuario.get().getContrasena());
+    }
 
     /**
      * Encuentra todos los usuarios disponibles en la base de datos.
@@ -69,12 +78,13 @@ public class UsuarioService {
     public Optional<Usuario> findUsuarioById(Integer id) {
         return usuarioRepository.findById(id);
     }
-    
+
     /**
-	 * Método de la interfaz que se encarga de buscar un usuario por su email
-	 * @param Email del usuario que queremos encontrar
-	 * @return Estancia de la clase Usuario
-	 */
+     * Busca un usuario por su correo electrónico.
+     *
+     * @param email El correo electrónico del usuario que queremos encontrar
+     * @return Una instancia de la clase Usuario si se encuentra, encapsulada en un objeto Optional
+     */
     public Optional<Usuario> findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
@@ -107,7 +117,4 @@ public class UsuarioService {
         }
         return usuarioRepository.save(usuario);
     }
-    
-    
-    
 }

@@ -5,10 +5,9 @@ CREATE DATABASE IF NOT EXISTS meethub;
 USE meethub;
 
 -- Borrar las tablas antes de volver a ejecuatarlas
-drop table if exists Reunion;
 drop table if exists Usuario;
 
--- Crear la tabla de Usuario s
+-- Crear la tabla de Usuarios
 CREATE TABLE Usuario (
     ID_Usuario INTEGER AUTO_INCREMENT PRIMARY KEY,
     Email VARCHAR(255) UNIQUE NOT NULL,

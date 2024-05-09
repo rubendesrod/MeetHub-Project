@@ -33,9 +33,17 @@ import com.meethub.project.services.GoogleUserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que controla todas las respuesta hacia la vista del calendario
+ */
 @Controller
 public class CalendarioController {
 
+	/**
+	 * Instancia al objeto GoogleUserService para realizar el ajuste en los tokens de google
+	 */
 	@Autowired
 	private GoogleUserService googleService;
 	

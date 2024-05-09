@@ -1,6 +1,8 @@
 package com.meethub.project;
 
 /**
+ * @author Ruben
+ * @version 1.0
  * Clase que contiene los metodos para validar campos
  */
 public class CamposValidate {
@@ -44,7 +46,7 @@ public class CamposValidate {
         if (nombre == null || nombre.trim().isEmpty()) {
             return false; // El nombre no debe estar vacío
         }
-        boolean soloLetras = nombre.matches("[a-zA-Z]+");
+        boolean soloLetras = nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+");
         boolean minCaracteres = nombre.length() >= 2;
         return soloLetras && minCaracteres;
     }
@@ -59,7 +61,7 @@ public class CamposValidate {
         if (apellidos == null || apellidos.trim().isEmpty()) {
             return false; // Los apellidos no deben estar vacíos
         }
-        boolean soloLetrasYEspacios = apellidos.matches("[a-zA-Z ]+");
+        boolean soloLetrasYEspacios = apellidos.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
         return soloLetrasYEspacios;
     }
     

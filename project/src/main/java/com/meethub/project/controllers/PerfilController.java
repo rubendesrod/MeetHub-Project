@@ -20,13 +20,23 @@ import com.meethub.project.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que se encarga de recoger las rutas que estan relacionadas con la vista de perfil
+ */
 @Controller
 public class PerfilController {
 
-	
+	/**
+	 * Instancia del Objeto de GoogleService para poder realizar comprobaciones del Token
+	 */
 	@Autowired
 	private GoogleUserService googleService;
 	
+	/**
+	 * Instancio del objeto UsuarioService para realizar consultas a la base de datos
+	 */
 	@Autowired
 	private UsuarioService usuarioService;
 	
@@ -92,6 +102,8 @@ public class PerfilController {
 			usu.setNombre(usuDTO.getNombre());
 			usu.setApellidos(usuDTO.getApellidos());
 		}else {
+			usuDTO.setNombre(usuSesion.getNombre());
+			usuDTO.setApellidos(usuSesion.getApellidos());
 			usuDTO.setAvatar(usuSesion.getAvatar());
 			usuDTO.setEmail(usuSesion.getEmail());
 			model.addAttribute("usuario", usuDTO);
@@ -115,6 +127,9 @@ public class PerfilController {
 			usuDTO.getMesNacimiento() == 0 ||
 			usuDTO.getDiaNacimiento() == 0) {
 			fechaNacimiento = null;
+			usuDTO.setDiaNacimiento(0);
+			usuDTO.setMesNacimiento(0);
+			usuDTO.setAnioNacimiento(0);
 		}else {
 			// Combinar la fecha de nacimiento par apasarla
 			fechaNacimiento = String.format("%d-%02d-%02d",
@@ -197,6 +212,12 @@ public class PerfilController {
 	}
 	
 	
+	/**
+	 * Metodo que se encarga de borrar la cuenta de un usuario
+	 * @param sesion Sesion que guarda el Navegador en las ruta HTTP
+	 * @param model Modelo al que se le setean atributos y mandarlos a la vista
+	 * @return Nombre de la vista a la que redirige
+	 */
 	@PostMapping("/perfil/borrarCuenta")
 	public String borrarCuenta(HttpSession sesion, Model model) {
 		

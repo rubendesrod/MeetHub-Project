@@ -23,21 +23,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import com.google.gson.Gson;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que realiza la autorización del usuario para poder usar la API de Google Calendar
+ */
 @Controller
 public class OAuth2Controller {
 
-    // Método que redirige al usuario a Google para autorizar nuestra aplicación
+	
+	
+    /**
+     * Metodo que responde al GET de la ruta y se encarga de mandar al usuario a la autorización con google
+     * @return manda al usuario a la ruta de autorización
+     */
     @GetMapping("/oauth2/authorize/google")
     public String redirectToGoogleOAuth() {
         String url = buildGoogleAuthorizationUrl();
         return "redirect:" + url;
     }
 
+    
+    
     /**
      * Método para manejar la redirección de vuelta desde Google después de que el usuario autorice la aplicación
      * @param code Código que devuelve Google después del Oauth de autorización del usuario
      * @param request Permite accerder a la solicitud HTTP actual para poder guardar el token
-     * @return
+     * @return Ruta que manda a un controlador con el GetMapping
      */
     @GetMapping("/oauth2/callback/google")
     public String handleGoogleOAuth2Callback(@RequestParam("code") String code, HttpSession session) {
@@ -63,10 +75,12 @@ public class OAuth2Controller {
 	 	}    
     }
 
+    
+    
     /**
      * Método que recibe el codigo de la autorización de google para poder acceder al token de acceso
      * @param code codigo de autorización
-     * @return
+     * @return Codigo del token de acceso
      */
     private String fetchAccessToken(String code, HttpSession session) {
         RestTemplate restTemplate = new RestTemplate();
@@ -92,7 +106,12 @@ public class OAuth2Controller {
         return null;
     }
 
-    // Método para construir la URL de autorización de Google
+    
+    
+    /**
+     * Metodo que se encarga de contruir la URL de autorización de google
+     * @return La URL que mandara al usuario a autorizarse
+     */
     private String buildGoogleAuthorizationUrl() {
         String clientId = "System.getenv("GOOGLE_CLIENT_ID")"; // Tu ID de cliente de Google
         String redirectUri = "http://localhost:9000/oauth2/callback/google"; // La URI de redirección configurada en Google

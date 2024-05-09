@@ -36,14 +36,28 @@ import com.meethub.project.services.GoogleUserService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que hace de controlador para las rutas de la vista Mis Reunion
+ */
 @Controller
 public class MisReunionesController {
 
+	/**
+	 * Instancia del objeto GoogleUserService para poder realizar la comprobacion del token de acceso
+	 */
 	 @Autowired
 	private GoogleUserService googleService;
 	 
 	 
 	 
+	 /**
+	  * Clase que responde a un metodo GET y devuelve la vista a las reuniones del Usuario
+	  * @param sesion Sesion que guarda el navegador web en la respuestas HTTP
+	  * @param model Modelo de la vista para devolver Atributos y que esta los use
+	  * @return Nombre de la vista a la que redirige
+	  */
 	 @GetMapping("/misReuniones")
 		public String mostrarMisReuniones(HttpSession  sesion, Model model) {
 			if (!comprobacionAutenticacion(sesion)) {
@@ -70,6 +84,13 @@ public class MisReunionesController {
 	 
 	 
 	 
+	 /**
+	  * Metodo que responde a un POST enviado por un formulario y se encgar a de actualizar la reunión que el usuario ha modificado
+	  * @param sesion Sesion que guarda el navegador web en las respuestas HTTP
+	  * @param reunion Objeto ReunionDTO que contiene los datos de la ruenión que ha sido modificada
+	  * @param model Modelo de la vista para añadir atributos y que esta los use
+	  * @return
+	  */
 	 @PostMapping("/misReuniones/actualizar")
 	 private String actualizarReunion(HttpSession sesion, 
 			 				@ModelAttribute ReunionDTO reunion,
@@ -150,6 +171,8 @@ public class MisReunionesController {
 		 return "misReuniones";
 	 }
 	
+	 
+	 
 	 /**
 	  * Método que se encargar de devolver el servicio del calendario para poder gestionar las llamadas a la API
 	  * @param accessToken token de acceso para la autorizacion
@@ -167,6 +190,7 @@ public class MisReunionesController {
 	    
 	    return service;
 	 }
+	 
 	 
 	 
 	 /**
@@ -196,6 +220,11 @@ public class MisReunionesController {
 	 }
 	 
 	 
+	 /**
+	  * Metodo al cual se le pasa el Objeto ReunionDTO y el modelo de la vista para realizar las validaciones de este
+	  * @param reunion Instancia del Objeto ReunionDTO
+	  * @param model Modelo de la vista
+	  */
 	 private void comprobarValidaciones(ReunionDTO reunion, Model model) {
 		 DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -243,6 +272,8 @@ public class MisReunionesController {
 		        model.addAttribute("errorParticipantes", "Debe haber al menos un participante.");
 		    }
 	 }
+	 
+	 
 	 
 	 /**
 	 * Método para convertir lo eventos de la API en EventosDTO y que full calendar lo entienda
@@ -316,6 +347,8 @@ public class MisReunionesController {
 		return reunionesDTO;
 	}
 	 
+	
+	
 	 /**
 	 * Método que recibe la session HTTP y busca si el usuarios se ha autorizado previamente
 	 * @param session Session que guarda el navegador cuando hace respuestas HTTP
@@ -328,6 +361,8 @@ public class MisReunionesController {
 	    }
 	    return true;
 	}
+	
+	
 	
 	/**
 	 * Método que se encarga de gestionar los tokens de acceso y de actualización para poder realizar las llamadas

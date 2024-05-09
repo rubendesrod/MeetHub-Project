@@ -15,16 +15,35 @@ import com.meethub.project.services.UsuarioService;
 
 import jakarta.servlet.http.HttpSession;
 
+/**
+ * @author Ruben
+ * @version 1.0
+ * Clase que se encarga de recoger la llamada a la vista de Poner Contrasena
+ */
 @Controller
 @RequestMapping("/ponerContrasena")
 public class PonerContraController {
 	
+	/**
+	 * Instancia del Objeto GoogleUserService para poder realizar la comprobación del token de acceso
+	 */
 	@Autowired
     private GoogleUserService googleUserService;
 	
+	/**
+	 * Instancia del Objeto UsuarioService para poder realizar consultas a la base de datos
+	 */
 	@Autowired
 	private UsuarioService usuarioService;
 	
+	
+	
+	/**
+	 * Metodo que reacciona a un POST enviado de un formulario, y realiza la creación del usuario en la Base de datos
+	 * @param formulario Objeto PonerContraDTO que contiene los datos enviados del usuario
+	 * @param session Sesion que guarda el navegador WEB en la respuestas HTTP
+	 * @return Nombre de la vista a la que redirige
+	 */
 	@PostMapping("/crearUsu")
 	public String crearUsuario(@ModelAttribute PonerContraDTO formulario, HttpSession session) {
 		

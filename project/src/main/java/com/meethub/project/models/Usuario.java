@@ -7,6 +7,9 @@ import jakarta.persistence.*;
 /**
  * Entidad que representa un usuario en la aplicación MeetHub.
  * Esta clase maneja detalles de información de los usuarios como email, contraseña, token de actualización y avatar.
+ * 
+ * @author Ruben
+ * @version 1.0
  */
 @Entity
 @Table(name = "Usuario")

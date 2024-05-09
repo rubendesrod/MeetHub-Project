@@ -3,205 +3,193 @@ package com.meethub.project.models;
 import com.meethub.project.Sexo;
 
 /**
- * Clase de la informacion basica del DTO que se envia a la vista para recoger los datos del formulario
+ * Clase que representa la información básica de un usuario.
+ * Esta clase es utilizada para recoger los datos desde un formulario y contiene
+ * atributos como nombre, apellidos, email, sexo, fecha de nacimiento y URL de avatar.
+ *
+ * @author Ruben
+ * @version 1.0
  */
 public class InformacionBasicaDTO {
 
-	/**
-	 * Nombre del usuario
-	 */
-	private String nombre;
-	
-	/**
-	 * Apellidos del usuario
-	 */
-	private String apellidos;
-	
-	/**
-	 * Email del usuario
-	 */
-	private String email;
-	
-	/**
-	 * ENUM de Sexo que identifica el sexo del usuario
-	 */
-	private Sexo sexo;
-	
-	/**
-	 * Dia de nacimiento del usuario
-	 */
-	private int diaNacimiento;
-	
-	/**
-	 * Mes de nacimiento del usuario
-	 */
-	private int mesNacimiento;
-	
-	/**
-	 * Año de nacimiento del usuario
-	 */
-	private int anioNacimiento;
-	
-	/**
-	 * URL del avatar del usuario
-	 */
-	private String avatar;
-	
-	/**
-	 * Constructor de vacio de la clase
-	 */
-	public InformacionBasicaDTO() {}
-	
-	/**
-	 * Constructor de la clase
-	 * @param nombre Nombre del usuario
-	 * @param apellidos Apellidos del usuario
-	 * @param email Email del usuario
-	 * @param sexo Sexo del usuario
-	 * @param dia Dia de nacimiento del usuario
-	 * @param mes Mes de nacimeinto del usuario
-	 * @param anio Año de nacimiento del usuario
-	 */
-	public InformacionBasicaDTO(String avatar,String nombre, String apellidos, String email, Sexo sexo, int dia, int mes, int anio) {
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.email = email;
-		this.sexo = sexo;
-		this.diaNacimiento = dia;
-		this.mesNacimiento = mes;
-		this.anioNacimiento = anio;
-		this.avatar = avatar;
-	}
+    private String nombre;
+    private String apellidos;
+    private String email;
+    private Sexo sexo;
+    private int diaNacimiento;
+    private int mesNacimiento;
+    private int anioNacimiento;
+    private String avatar;
 
-	/**
-	 * Metodo GET del nombre
-	 * @return String
-	 */
-	public String getNombre() {
-		return nombre;
-	}
+    /**
+     * Constructor sin parámetros para crear una instancia vacía de InformacionBasicaDTO.
+     */
+    public InformacionBasicaDTO() {}
 
-	/**
-	 * Metodo SET del nombre
-	 * @param nombre Nombre del usuario
-	 */
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	
-	/**
-	 * Meotodo GET de los apellidos
-	 * @return String
-	 */
-	public String getApellidos() {
-		return apellidos;
-	}
+    /**
+     * Constructor para crear una instancia de InformacionBasicaDTO con todos los detalles del usuario.
+     * 
+     * @param avatar URL del avatar del usuario.
+     * @param nombre Nombre del usuario.
+     * @param apellidos Apellidos del usuario.
+     * @param email Correo electrónico del usuario.
+     * @param sexo Sexo del usuario, como definido por el ENUM {@link Sexo}.
+     * @param dia Día de nacimiento del usuario.
+     * @param mes Mes de nacimiento del usuario.
+     * @param anio Año de nacimiento del usuario.
+     */
+    public InformacionBasicaDTO(String avatar, String nombre, String apellidos, String email, Sexo sexo, int dia, int mes, int anio) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.email = email;
+        this.sexo = sexo;
+        this.diaNacimiento = dia;
+        this.mesNacimiento = mes;
+        this.anioNacimiento = anio;
+        this.avatar = avatar;
+    }
 
-	/**
-	 * Metodo SET de los apellidos
-	 * @param apellidos Apellidos del usuario
-	 */
-	public void setApellidos(String apellidos) {
-		this.apellidos = apellidos;
-	}
+    /**
+     * Obtiene el nombre del usuario.
+     * 
+     * @return Nombre del usuario.
+     */
+    public String getNombre() {
+        return nombre;
+    }
 
-	
-	/**
-	 * Metodo GET del email
-	 * @return
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * Establece el nombre del usuario.
+     * 
+     * @param nombre Nombre del usuario a establecer.
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	/**
-	 * Metodo set del email
-	 * @param email Email de usuario
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * Obtiene los apellidos del usuario.
+     * 
+     * @return Apellidos del usuario.
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
 
-	
-	/**
-	 * Metodo GET del sexo ENUM
-	 * @return SEXO ENUM
-	 */
-	public Sexo getSexo() {
-		return sexo;
-	}
+    /**
+     * Establece los apellidos del usuario.
+     * 
+     * @param apellidos Apellidos del usuario a establecer.
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
 
-	/**
-	 * Metodo SET del sexo
-	 * @param sexo
-	 */
-	public void setSexo(Sexo sexo) {
-		this.sexo = sexo;
-	}
+    /**
+     * Obtiene el email del usuario.
+     * 
+     * @return Email del usuario.
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * Metodo GET del dia de nacimiento
-	 * @return int
-	 */
-	public int getDiaNacimiento() {
-		return diaNacimiento;
-	}
+    /**
+     * Establece el email del usuario.
+     * 
+     * @param email Correo electrónico del usuario a establecer.
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	/**
-	 * Metodo SET del dia de nacimiento
-	 * @param diaNacimiento Dia de nacimiento del usuario
-	 */
-	public void setDiaNacimiento(int diaNacimiento) {
-		this.diaNacimiento = diaNacimiento;
-	}
+    /**
+     * Obtiene el sexo del usuario.
+     * 
+     * @return Sexo del usuario.
+     */
+    public Sexo getSexo() {
+        return sexo;
+    }
 
-	
-	/**
-	 * Metodo GET del mes de nacimiento
-	 * @return int
-	 */
-	public int getMesNacimiento() {
-		return mesNacimiento;
-	}
+    /**
+     * Establece el sexo del usuario.
+     * 
+     * @param sexo Sexo del usuario a establecer.
+     */
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
 
-	/**
-	 * Metodo SET del mes de nacimiento
-	 * @param mesNacimiento Mes de nacimiento del usuario
-	 */
-	public void setMesNacimiento(int mesNacimiento) {
-		this.mesNacimiento = mesNacimiento;
-	}
+    /**
+     * Obtiene el día de nacimiento del usuario.
+     * 
+     * @return Día de nacimiento del usuario.
+     */
+    public int getDiaNacimiento() {
+        return diaNacimiento;
+    }
 
-	/**
-	 * Metodo GET del año de nacimiento
-	 * @return int
-	 */
-	public int getAnioNacimiento() {
-		return anioNacimiento;
-	}
+    /**
+     * Establece el día de nacimiento del usuario.
+     * 
+     * @param diaNacimiento Día de nacimiento del usuario a establecer.
+     */
+    public void setDiaNacimiento(int diaNacimiento) {
+        this.diaNacimiento = diaNacimiento;
+    }
 
-	/**
-	 * Metodo SET del año de nacimiento
-	 * @param anioNacimiento Año de nacimiento del usuario
-	 */
-	public void setAnioNacimiento(int anioNacimiento) {
-		this.anioNacimiento = anioNacimiento;
-	}
+    /**
+     * Obtiene el mes de nacimiento del usuario.
+     * 
+     * @return Mes de nacimiento del usuario.
+     */
+    public int getMesNacimiento() {
+        return mesNacimiento;
+    }
 
-	/**
-	 * Metodo GET que devuelve el URL del avatar del usuario
-	 * @return String
-	 */
-	public String getAvatar() {
-		return avatar;
-	}	
-	
-	/**
-	 * Metodo SET del avatar del Usuario
-	 * @param avatar String del URL
-	 */
-	public void setAvatar(String avatar) {
-		this.avatar = avatar;
-	}
+    /**
+     * Establece el mes de nacimiento del usuario.
+     * 
+     * @param mesNacimiento Mes de nacimiento del usuario a establecer.
+     */
+    public void setMesNacimiento(int mesNacimiento) {
+        this.mesNacimiento = mesNacimiento;
+    }
+
+    /**
+     * Obtiene el año de nacimiento del usuario.
+     * 
+     * @return Año de nacimiento del usuario.
+     */
+    public int getAnioNacimiento() {
+        return anioNacimiento;
+    }
+
+    /**
+     * Establece el año de nacimiento del usuario.
+     * 
+     * @param anioNacimiento Año de nacimiento del usuario a establecer.
+     */
+    public void setAnioNacimiento(int anioNacimiento) {
+        this.anioNacimiento = anioNacimiento;
+    }
+
+    /**
+     * Obtiene el URL del avatar del usuario.
+     * 
+     * @return URL del avatar del usuario.
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
+     * Establece el URL del avatar del usuario.
+     * 
+     * @param avatar URL del avatar a establecer.
+     */
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
 }
