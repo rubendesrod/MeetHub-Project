@@ -186,7 +186,7 @@ public class PerfilController {
 			// Compruebo que la contraseña en texto plano es la misma que la contraseña HASHEADA
 			if(PasswordUtil.verificarPassword(passActual, usu.getContrasena())) {
 			    // Validación de la nueva contraseña
-			    if (CamposValidate.validarNuevaContraseña(newPass)) {
+			    if (CamposValidate.validarNuevaContrasena(newPass)) {
 			    	// Validación de que las nuevas contraseñas son iguales las dos
 			       if (newPass.equals(newPassRep)) {
 						String passCodificada = PasswordUtil.hashPassword(newPass);

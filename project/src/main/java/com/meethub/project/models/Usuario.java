@@ -55,8 +55,8 @@ public class Usuario {
      * Crea un nuevo usuario con los detalles especificados.
      *
      * @param email el correo electrónico del usuario, no debe ser nulo y debe ser único.
-     * @param contraseña la contraseña del usuario, no debe ser nulo.
-     * @param tokenDeActualizacion el token utilizado para la actualización de la sesión, puede ser nulo.
+     * @param contrasena la contraseña del usuario, no debe ser nulo.
+     * @param Token el token utilizado para la actualizacion de la sesion, puede ser nulo.
      * @param avatar la URL del avatar del usuario, puede ser nulo.
      */
     public Usuario(String email, String contrasena, String Token, String avatar) {
@@ -78,7 +78,7 @@ public class Usuario {
 
     /**
      * Método set del ID
-     * @param id
+     * @param id Setea el id del usuario
      */
     public void setId(int id) {
         this.id = id;
@@ -94,7 +94,7 @@ public class Usuario {
 
     /**
      * Metodo set para el email
-     * @param email
+     * @param email Email del usuario
      */
     public void setEmail(String email) {
         this.email = email;
@@ -103,7 +103,7 @@ public class Usuario {
     
     /**
      * Devuelve el Nombre del usuario
-     * @return
+     * @return Nombre del usuario
      */
     public String getNombre() {
 		return Nombre;
@@ -119,7 +119,7 @@ public class Usuario {
 
 	/**
 	 * Devuelve los apellidos del usuario
-	 * @return
+	 * @return Apellidos del usuario
 	 */
 	public String getApellidos() {
 		return apellidos;
@@ -143,10 +143,10 @@ public class Usuario {
 
     /**
      * Metodo set para la contraseña
-     * @param contraseña
+     * @param contrasena Contraseña hasheada del usuario
      */
-    public void setContrasena(String contraseña) {
-        this.contrasena = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
@@ -159,7 +159,7 @@ public class Usuario {
 
     /**
      * Metodo set para el token
-     * @param Token
+     * @param Token Token de actualizacion de google
      */
     public void setToken(String Token) {
         this.Token = Token;
@@ -175,7 +175,7 @@ public class Usuario {
 
     /**
      * Metodo set para el avatar
-     * @param avatar
+     * @param avatar Enlace del avatar del usuario de google
      */
     public void setAvatar(String avatar) {
         this.avatar = avatar;
@@ -191,7 +191,7 @@ public class Usuario {
 
 	/**
 	 * Metodo para setear una nueva fecha de nacimiento
-	 * @param fechaNacimiento
+	 * @param fechaNacimiento Fecha de nacimiento del usuario
 	 */
 	public void setFechaNacimiento(String fechaNacimiento) {
 		FechaNacimiento = fechaNacimiento;
@@ -208,7 +208,7 @@ public class Usuario {
 
 	/**
 	 * Metodo que setea el sexo del usuario
-	 * @param sexo
+	 * @param sexo Sexo del usuario
 	 */
 	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;

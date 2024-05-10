@@ -13,7 +13,7 @@ public class CamposValidate {
 	 * @param newPass contraseña que intenta meter el usuario
 	 * @return True, si la contraseña es válida, False si la contraseña no es válida
 	 */
-    public static boolean validarNuevaContraseña(String newPass) {
+    public static boolean validarNuevaContrasena(String newPass) {
         if (newPass == null || newPass.trim().isEmpty()) {
             return false; // Contraseña no debe estar vacía
         }
@@ -46,7 +46,7 @@ public class CamposValidate {
         if (nombre == null || nombre.trim().isEmpty()) {
             return false; // El nombre no debe estar vacío
         }
-        boolean soloLetras = nombre.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ]+");
+        boolean soloLetras = nombre.matches("[a-zA-Z\\u00E1\\u00E9\\u00ED\\u00F3\\u00FA\\u00C1\\u00C9\\u00CD\\u00D3\\u00DA\\u00F1\\u00D1]+");
         boolean minCaracteres = nombre.length() >= 2;
         return soloLetras && minCaracteres;
     }
@@ -61,7 +61,7 @@ public class CamposValidate {
         if (apellidos == null || apellidos.trim().isEmpty()) {
             return false; // Los apellidos no deben estar vacíos
         }
-        boolean soloLetrasYEspacios = apellidos.matches("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+");
+        boolean soloLetrasYEspacios = apellidos.matches("[a-zA-Z\\u00E1\\u00E9\\u00ED\\u00F3\\u00FA\\u00C1\\u00C9\\u00CD\\u00D3\\u00DA\\u00F1\\u00D1 ]+");
         return soloLetrasYEspacios;
     }
     
