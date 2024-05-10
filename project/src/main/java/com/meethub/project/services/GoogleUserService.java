@@ -48,9 +48,16 @@ public class GoogleUserService {
             Usuario usuario = new Usuario();
             usuario.setEmail(jsonObject.get("email").getAsString());
             usuario.setNombre(jsonObject.get("given_name").getAsString());
-            usuario.setApellidos(jsonObject.get("family_name").getAsString());
-            usuario.setAvatar(jsonObject.get("picture").getAsString());
-
+           try {
+           		usuario.setApellidos(jsonObject.get("family_name").getAsString());
+			} catch (Exception e) {
+				 usuario.setApellidos(" ");
+			}
+           try {
+        	   usuario.setAvatar(jsonObject.get("picture").getAsString());
+           }catch(Exception e) {
+        	   usuario.setAvatar(null);
+           }
             try {
                 usuario.setFechaNacimiento(jsonObject.get("birthdate").getAsString());
             } catch (Exception e) {
