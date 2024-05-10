@@ -113,7 +113,7 @@ public class OAuth2Controller {
      * @return La URL que mandara al usuario a autorizarse
      */
     private String buildGoogleAuthorizationUrl() {
-        String clientId = "System.getenv("GOOGLE_CLIENT_ID")"; // Tu ID de cliente de Google
+        String clientId = System.getenv("GOOGLE_CLIENT_ID"); // Tu ID de cliente de Google
         String redirectUri = "http://localhost:9000/oauth2/callback/google"; // La URI de redirección configurada en Google
         return "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + clientId +
                "&redirect_uri=" + redirectUri +
