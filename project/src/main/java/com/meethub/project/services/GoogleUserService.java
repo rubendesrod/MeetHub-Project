@@ -73,8 +73,8 @@ public class GoogleUserService {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("client_id", "your-client-id");
-        map.add("client_secret", "your-client-secret");
+        map.add("client_id", System.getenv("GOOGLE_CLIENT_ID"));
+        map.add("client_secret", System.getenv("GOOGLE_CLIENT_SECRET"));
         map.add("refresh_token", refreshToken);
         map.add("grant_type", "refresh_token");
 

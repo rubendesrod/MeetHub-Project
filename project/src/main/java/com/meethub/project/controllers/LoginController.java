@@ -46,7 +46,7 @@ public class LoginController {
 	 * @param email Email del usuario que quiere acceder
 	 * @param password Contraseña del usuario
 	 * @param redirectAttributes Objeto que permite añadir atributos y que se mantenga en la siguiente vista
-	 * @return
+	 * @return vista a la que quiere rediriguir
 	 */
 	@PostMapping("/iniciar")
 	public String iniciarLogin(HttpSession sesion, @RequestParam("email") String email, @RequestParam("password") String password 
