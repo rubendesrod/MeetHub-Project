@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.meethub</groupId>
-	<artifactId>project</artifactId>
-	<version>2.1.0.RELEASE</version>
+	<artifactId>MeetHub</artifactId>
+	<version>2.5.0</version>
 	<name>MeetHub</name>
 	<description>MeetHub - Porject for Meets</description>
 	<properties>
@@ -92,6 +92,18 @@
                     <encoding>UTF-8</encoding> <!-- Especifica UTF-8 o la codificación que estés utilizando -->
                 </configuration>
             </plugin>
+            <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>2.5.0</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
         </plugins>
     </build>
 </project>
