@@ -89,7 +89,7 @@
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding> <!-- Especifica UTF-8 o la codificación que estés utilizando -->
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>

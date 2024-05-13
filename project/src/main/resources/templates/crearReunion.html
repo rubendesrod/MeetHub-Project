@@ -104,22 +104,22 @@
                             <div class="row my-sm-3 py-4">
                                 <div class="col-sm-3 col-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="nombreReunion" th:field="*{nombre}" name="nombreReunion" placeholder="nombre" required>
+                                        <input alt="Introduce nombre de la reunion" type="text" class="form-control" id="nombreReunion" th:field="*{nombre}" name="nombreReunion" placeholder="nombre">
                                         <label for="nombreReunion">Nombre</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-6">
                                     <div class="form-floating">
-                                        <select th:field="*{modo}" name="modoReunion" class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión">
-                                            <option value="Online" selected>Online</option>
-                                            <option value="Presencial">Presencial</option>
+                                        <select alt="Introduce modo presencial u online para la reunion" th:field="*{modo}" name="modoReunion" class="form-select" id="floatingSelect" aria-label="Select de Tipo reunión">
+                                            <option alt="online" value="Online" selected>Online</option>
+                                            <option alt="presencial" value="Presencial">Presencial</option>
                                         </select>
                                         <label for="floatingSelect">Modo (*)</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-12 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input th:field="*{descripcion}" type="text" class="form-control" id="descripcionReunion" name="descripcionReunion" placeholder="nombre">
+                                        <input alt="Introduce el motivo o descripcion de la reunión" th:field="*{descripcion}" type="text" class="form-control" id="descripcionReunion" name="descripcionReunion" placeholder="nombre">
                                         <label for="descr-ipcionReunion">Motivo/Descripción (*)</label>
                                     </div>
                                     
@@ -128,19 +128,19 @@
                             <div class="row my-sm-3 d-flex justify-content-center">
                                 <div class="col-sm-3 col-10">
                                     <div class="form-floating">
-                                        <input th:field="*{dateReunion}" type="date" class="form-control" id="floatingDia" name="floatingDia" placeholder="Dia" required>
+                                        <input alt="dia de la reunión" th:field="*{dateReunion}" type="date" class="form-control" id="floatingDia" name="floatingDia" placeholder="Dia" required>
                                         <label for="floatingDia">Dia</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-5 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input th:field="*{start}" type="time" class="form-control" id="floatingHoraE" name="floatingHoraE" placeholder="HoraEmpiece" required>
+                                        <input alt="Hora de empiece" th:field="*{start}" type="time" class="form-control" id="floatingHoraE" name="floatingHoraE" placeholder="HoraEmpiece" required>
                                         <label for="floatingHoraE">Desde las</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-5 my-sm-0 my-3">
                                     <div class="form-floating">
-                                        <input  th:field="*{end}" type="time" class="form-control" id="floatingHoraF" name="floatingHoraF" placeholder="HoraFinal" required>
+                                        <input alt="Hora de finalización de la reunión"  th:field="*{end}" type="time" class="form-control" id="floatingHoraF" name="floatingHoraF" placeholder="HoraFinal" required>
                                         <label for="floatingHoraF">Hasta las</label>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@
                             <div class="row d-flex flex-row justify-content-center py-4">
                                 <div class="col-sm-7 col-12">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" id="emailInput" placeholder="example@gmail.com" aria-label="example@gmail.com" aria-describedby="button-addon2">
+                                        <input alt="Introduce integrantes en la reunión" type="email" class="form-control" id="emailInput" placeholder="example@gmail.com" aria-label="example@gmail.com" aria-describedby="button-addon2">
                                         <button class="btn btn-outline-primary" type="button" id="botonAnadirIntegrante">AÑADIR</button>
                                     </div>
                                     <div class="error-message" id="errorEmailVacio" style="display: none;">El email no puede estar vacío.</div>
