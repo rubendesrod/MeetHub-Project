@@ -3,7 +3,7 @@
 ## Gestor de Reuniones - Proyecto Fin de Grado Superior
 
 ![Status](https://img.shields.io/badge/status-active-success.svg)
-![GitHub last commit](https://img.shields.io/github/last-commit/rubendesrod/MeetHub)
+![GitHub last commit](https://img.shields.io/github/last-commit/rubendesrod/MeetHub-Project)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 MeetHub es una aplicación diseñada para gestionar eficientemente las reuniones, permitiendo a los usuarios crear, modificar y visualizar próximas reuniones de manera sencilla y efectiva. Este proyecto ha sido desarrollado como parte del trabajo de fin de grado superior en informática.
